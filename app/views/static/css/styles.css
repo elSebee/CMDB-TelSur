@@ -1,0 +1,87 @@
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #3d464f;
+    overflow-x: hidden;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar.closed {
+    left: -250px; /* Oculta el sidebar */
+}
+
+/* Navbar */
+.custom-navbar {
+    background-color: #9a9999;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px); /* Ajusta al ancho del sidebar */
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 900;
+    font-weight: bold;
+}
+
+.custom-navbar.sidebar-closed {
+    left: 0;
+    width: 100%; /* Ocupa toda la pantalla cuando el sidebar está cerrado */
+}
+
+/* Contenido principal */
+#main-content {
+    margin-left: 250px; /* Ajusta al ancho del sidebar */
+    padding: 20px; /* Espaciado interno */
+    transition: margin-left 0.3s ease; /* Transición suave */
+}
+
+#main-content.sidebar-closed {
+    margin-left: 0; /* Todo el contenido se mueve hacia la izquierda */
+}
+
+/* Botón de despliegue */
+.toggle-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #343a40;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #747474;
+}
+
+/* Links del sidebar */
+.nav-link {
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #747474;
+    color: white;
+}
+
+.nav-link.active {
+    background-color: #747474; /* Cambia este color al que desees */
+    color: white; /* Cambia este color al que desees */
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .custom-navbar {
+        height: 50px;
+    }
+}
