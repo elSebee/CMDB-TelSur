@@ -34,15 +34,17 @@
     width: 100%; /* Ocupa toda la pantalla cuando el sidebar está cerrado */
 }
 
-/* Contenido principal */
 #main-content {
-    margin-left: 250px; /* Ajusta al ancho del sidebar */
+    margin-left: 250px; /* Ancho del sidebar */
     padding: 20px; /* Espaciado interno */
-    transition: margin-left 0.3s ease; /* Transición suave */
+    transition: all 0.3s ease; /* Transición suave */
+    width: calc(100% - 250px); /* Resta el ancho del sidebar del 100% */
+    max-width: 100%; /* Evita que exceda el ancho total */
 }
 
 #main-content.sidebar-closed {
     margin-left: 0; /* Todo el contenido se mueve hacia la izquierda */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 /* Botón de despliegue */
@@ -84,4 +86,8 @@
     .custom-navbar {
         height: 50px;
     }
+}
+
+.divv {
+    border: 2px solid red;
 }
