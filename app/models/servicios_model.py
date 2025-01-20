@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String
-from .database.db_oracle import Base
+from app.database.db import db
 
-class Usuario(Base):
-    __tablename__ = 'usuarios'
+class Servicios(db.Model):
+    __tablename__ = 'PROCT_SERVICIOS'
 
-    id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    id_servicio = db.Column(db.Integer, primary_key=True)
+    alias = db.Column(db.String(10))
+    id_area_responsable = db.Column(db.Integer, db.ForeignKey('PROCT_AREAS.id_area'))
+    nomb_servicio = db.Column(db.String(30))
+    desc_servicio = db.Column(db.String(100))

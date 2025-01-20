@@ -14,5 +14,15 @@
     <p>Bienvenido a la página de servicios. Aquí podrás ver todos los servicios gestionados en el sistema.</p>
 
     <!-- Agregar más contenido específico de la página -->
+    {% for servicio in servicios %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ servicio.nomb_servicio }}</h5>
+        </div>
+    </div>
+
+    {% endfor %}
+
 </div>
 {% endblock %}

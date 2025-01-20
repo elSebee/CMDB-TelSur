@@ -14,5 +14,14 @@
     <p>Bienvenido a la página de CI's. Aquí podrás ver todos los CI's gestionados en el sistema.</p>
 
     <!-- Agregar más contenido específico de la página -->
+    {% for ci in cis %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ ci.alias }}</h5>
+        </div>
+    </div>
+
+    {% endfor %}
 </div>
 {% endblock %}
