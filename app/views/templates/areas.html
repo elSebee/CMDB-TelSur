@@ -9,9 +9,24 @@
     <p style="margin: 0;">/ Áreas</p>
 </div>
 <!-- Main content -->
-<div class="container mt-5">
-    <h1>Áreas</h1>
-    <p>Bienvenido a la página de áreas. Aquí podrás ver todas las áreas gestionados en el sistema.</p>
+<div class="container-fluid mt-4">
+    <button class="btn-agregar">
+        <i class="bi bi-plus-circle-dotted"></i>
+        AGREGAR
+    </button>
+
+    <!-- Elemento donde se renderizarán los strings -->
+    <div class="table-header" id="tableHeader">
+        <!-- Los strings serán insertados aquí -->
+    </div>
+
+    <!-- Contenedor oculto para la lista de strings -->
+    <script id="dataStrings" type="application/json">
+        ["Acción", "ID", "Nombre", "Empresa", "Descripción"]
+    </script>
+
+    <!-- Llamamos al script externo -->
+    <script src="/static/js/cabeceraTabla.js"></script>
 
     <!-- Agregar más contenido específico de la página -->
 </div>

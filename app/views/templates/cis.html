@@ -9,16 +9,49 @@
     <p style="margin: 0;">/ CI's</p>
 </div>
 <!-- Main content -->
-<div class="container mt-5">
-    <h1>CI's</h1>
-    <p>Bienvenido a la página de CI's. Aquí podrás ver todos los CI's gestionados en el sistema.</p>
+<div class="container-fluid mt-4">
+    <button class="btn-agregar">
+        <i class="bi bi-plus-circle-dotted"></i>
+        AGREGAR
+    </button>
+
+    <!-- Elemento donde se renderizarán los strings -->
+    <div class="table-header" id="tableHeader">
+        <!-- Los strings serán insertados aquí -->
+    </div>
+
+    <!-- Contenedor oculto para la lista de strings -->
+    <script id="dataStrings" type="application/json">
+        ["Acción", "ID", "Alias", "Prioridad", "Tipo", "Estado", "Dirección IP", "Fecha", "URL", "Descripción"]
+    </script>
+
+    <!-- Llamamos al script externo -->
+    <script src="/static/js/cabeceraTabla.js"></script>
+    
 
     <!-- Agregar más contenido específico de la página -->
     {% for ci in cis %}
 
-    <div class="card mt-3">
+    <div class="card mt-1 border-0">
         <div class="card-body">
+            <div class="button-group">
+                <button class="btn btn-action" style="background-color: #ff8130; color: black;">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-action" style="background-color: #ff3636; color: black;">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
+            </div>
+            <h5 class="card-title">{{ ci.id_ci }}</h5>
             <h5 class="card-title">{{ ci.alias }}</h5>
+            <h5 class="card-title">{{ ci.prioridad }}</h5>
+            <h5 class="card-title">{{ ci.tipo_ci }}</h5>
+            <h5 class="card-title">{{ ci.estado }}</h5>
+            <h5 class="card-title">{{ ci.fech_actualizacion }}</h5>
+            <h5 class="card-title">{{ ci.dire_ip }}</h5>
+            <h5 class="card-title">{{ ci.puerto }}</h5>
+            <h5 class="card-title">{{ ci.url }}</h5>
+            <h5 class="card-title">{{ ci.desc_ci }}</h5>
         </div>
     </div>
 

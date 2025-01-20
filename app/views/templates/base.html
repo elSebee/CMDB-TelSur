@@ -24,7 +24,10 @@
         <!-- Barra lateral -->
         <nav id="sidebar" class="sidebar">
             <ul class="nav flex-column pt-3">
-                <li class="nav-item">
+                <li class="text-center mb-3">
+                    <img src="https://www.telsur.cl/image/layout_set_logo?img_id=4145673&t=1655450341867" alt="Logo" class="img-fluid" style="width: 150px; height: 150px;">
+                </li>
+                <li class="nav-item" style="padding-top: 20px;">
                     <a class="nav-link {% if request.path == '/servicios/' %}active{% endif %}" href="/servicios">
                         <i class="bi bi-headset" style="font-size: 18px; margin-right: 8px;"></i>
                         Servicios
@@ -33,7 +36,7 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/cis/' %}active{% endif %}" href="/cis">
                         <i class="bi bi-diagram-2" style="font-size: 18px; margin-right: 8px;"></i>
-                        CI’s
+                        CI's
                     </a>
                 </li>
                 <li class="nav-item">
@@ -42,6 +45,7 @@
                         Dependencias
                     </a>
                 </li>
+                <div class="separator" style="border-bottom: 1px solid white; margin: 20px;"></div>
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/areas/' %}active{% endif %}" href="/areas">
                         <i class="bi bi-person-workspace" style="font-size: 18px; margin-right: 8px;"></i>

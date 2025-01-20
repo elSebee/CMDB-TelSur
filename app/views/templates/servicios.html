@@ -9,10 +9,24 @@
     <p style="margin: 0;">/ Servicios</p>
 </div>
 <!-- Main content -->
-<div class="container mt-5 divv">
-    <h1>Servicios</h1>
-    <p>Bienvenido a la página de servicios. Aquí podrás ver todos los servicios gestionados en el sistema.</p>
+<div class="container-fluid mt-4">
+    <button class="btn-agregar">
+        <i class="bi bi-plus-circle-dotted"></i>
+        AGREGAR
+    </button>
 
+    <!-- Elemento donde se renderizarán los strings -->
+    <div class="table-header" id="tableHeader">
+        <!-- Los strings serán insertados aquí -->
+    </div>
+
+    <!-- Contenedor oculto para la lista de strings -->
+    <script id="dataStrings" type="application/json">
+        ["Acción", "ID", "Alias", "Nombre", "Área Responsable", "Descripción"]
+    </script>
+
+    <!-- Llamamos al script externo -->
+    <script src="/static/js/cabeceraTabla.js"></script>
     <!-- Agregar más contenido específico de la página -->
     {% for servicio in servicios %}
 

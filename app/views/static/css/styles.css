@@ -88,6 +88,62 @@
     }
 }
 
-.divv {
-    border: 2px solid red;
+.btn-agregar {
+    background-color: #41b8d5;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar i {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.btn-agregar:hover {
+    background-color: #33a3b8;
+}
+
+.table-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.table-header {
+    background-color: #2b343c;
+    color: #fff;
+    padding: 10px 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    display: flex; /* Usamos Flexbox */
+    justify-content: space-around; /* Distribuye los elementos uniformemente */
+    align-items: center;
+}
+.table-header span {
+    margin: 0 10px; /* Espaciado entre los elementos */
+}
+
+.card-body {
+    display: flex; /* Convierte el contenedor en flexbox */
+    justify-content: space-between; /* Distribuye los elementos uniformemente */
+    align-items: center; /* Alinea verticalmente en el centro */
+    border-bottom: 1px solid #2b343c;
+}
+.card-title {
+    margin: 0; /* Elimina márgenes innecesarios para una mejor alineación */
+    font-size: 14px; /* Ajusta el tamaño del texto si es necesario */
+}
+
+.button-group {
+    display: flex; /* Asegura que los botones estén alineados horizontalmente */
+}
+.btn-action:hover {
+    opacity: 0.9
 }
