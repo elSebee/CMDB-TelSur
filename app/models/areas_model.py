@@ -5,3 +5,5 @@ class Areas(db.Model):
 
     id_area = db.Column(db.Integer, primary_key=True)
     desc_area = db.Column(db.String(200), nullable=False, unique=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    empresa = db.Column(db.String(100), nullable=False)

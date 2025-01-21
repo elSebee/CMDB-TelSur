@@ -4,80 +4,58 @@
 <!-- Breadcrumb -->
 <div style="display: flex; align-items: center; gap: 10px;">
     <button onclick="location.href='/'" class="btn btn-primary" style="border: none; background: none; padding: 0;">
-        <i class="bi bi-house-fill" style="font-size: 22px; color: #2d8bba;"></i>
+        <i class="bi bi-house-fill" style="font-size: 22px; color: #33a3b8;"></i>
     </button>
     <p style="margin: 0;">/ {{ breadcrumb }} / Agregar</p>
 </div>
 <!-- Main content -->
 <div class="container-fluid mt-4">
     <div style="display: flex; align-items: center; gap: 10px; background-color: #d6d4d4;">
-        <button onclick="location.href='{{ url_volver }}'" class="btn btn-action" style="margin: 3px; background-color: #2d8bba; color: white; display: flex; align-items: center;">
+        <button onclick="location.href='{{ url_volver }}'" class="btn btn-agregar" style="margin: 3px; display: flex; align-items: center;">
             <i class="bi bi-chevron-left" style="font-size: 20px; margin-right: 8px;"></i>
             <p style="margin: 0;">Volver</p>
         </button>        
         <p style="margin: 0;"> {{ breadcrumb }}</p>
     </div>
+    
+    <div class="container-fluid p-4">
+        <form method="POST" action="{{ url_crear }}">
+            {% for campo in campos %}
+                <div class="d-flex align-items-center mb-3">
+                    <div class="me-3" style="width: 100px;">
+                        <label for="{{ campo.name }}" class="form-label mb-0" style="font-weight: bold;">
+                            {{ campo.label }}
+                        </label>
+                    </div>
+                    <div class="flex-grow-1" style="padding-left: 100px;">
+                        {% if campo.type == 'text' %}
+                            <input type="text" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
+                        {% elif campo.type == 'select' %}
+                            <select class="form-select" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
+                                <option value="" disabled selected>Selecciona {{ campo.label }}</option>
+                                {% for option in campo.options %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        {% elif campo.type == 'checkbox' %}
+                            {% for option in campo.options %}
+                                <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ option }}">
+                                <label class="form-check-label" for="{{ option }}">{{ option }}</label>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
 
-    <div class="card mt-4">
-        <div class="card-body">
-            <form action="{{ url_volver }}/agregar/nuevo" method="POST">
-                <div class="mb-3">
-                    <label for="alias" class="form-label">Alias</label>
-                    <input type="text" class="form-control" id="alias" name="alias" required>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="prioridad" class="form-label">Prioridad</label>
-                    <select class="form-select" id="prioridad" name="prioridad" required>
-                        <option value="" disabled selected>Selecciona la prioridad</option>
-                        <option value="Alta">Alta</option>
-                        <option value="Media">Media</option>
-                        <option value="Baja">Baja</option>
-                    </select>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo</label>
-                    <select class="form-select" id="tipo" name="tipo" required>
-                        <option value="" disabled selected>Selecciona el tipo</option>
-                        {% for tipo in tipos %}
-                            <option value="Tipo1">{{ tipo }}</option>
-                        {% endfor %}
+            <div class="d-flex" style="margin-top: 50px;">
+                <button type="submit" class="btn btn-agregar" style="background-color: #068c64; color: white;"><i class="bi bi-check"></i>Agregar</button>
+            </div>
 
-                        <!-- Aquí puedes agregar más opciones según los tipos disponibles en la base de datos -->
-                    </select>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="estado" class="form-label">Estado</label>
-                    <select class="form-select" id="estado" name="estado" required>
-                        <option value="" disabled selected>Selecciona el estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                        <option value="En Mantenimiento">En Mantenimiento</option>
-                        <!-- Puedes agregar más estados según tu caso -->
-                    </select>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="dire_ip" class="form-label">Dirección IP</label>
-                    <input type="text" class="form-control" id="dire_ip" name="dire_ip" required>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="url" class="form-label">URL</label>
-                    <input type="text" class="form-control" id="url" name="url" required>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="desc_ci" class="form-label">Descripción</label>
-                    <input type="text" class="form-control" id="desc_ci" name="desc_ci" required>
-                </div>
-            
-                <button type="submit" class="btn btn-primary">Agregar</button>
-            </form>
-            
-        </div>
 
+        </form>
+    </div>
+    
+    
+    
 </div>
 {% endblock %}
