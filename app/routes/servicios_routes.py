@@ -6,5 +6,10 @@ alcance_servicios = Blueprint("servicios", __name__)
 
 @alcance_servicios.route("/", methods=['GET'])
 def servicios():
+    ids = ["Acción", "ID", "Alias", "Nombre", "Área Responsable", "Descripción"]
     servicios = Servicios.query.all()
-    return render_template("servicios.html", servicios=servicios)
+    return render_template("leer.html", breadcrumb="Servicios", valores=servicios, ids=ids, url_agregar="/servicios/agregar")
+
+@alcance_servicios.route("/agregar", methods=['GET'])
+def serviciosAgregar():
+    return render_template("agregar.html", breadcrumb="Servicios", url_volver="/servicios")

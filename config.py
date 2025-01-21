@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import secrets
 
 load_dotenv()
 
@@ -16,3 +17,5 @@ class Config:
 
     TEMPLATE_FOLDER = "views/templates/"
     STATIC_FOLDER = "views/static/"
+
+    SECRET_KEY = secrets.token_hex(16)

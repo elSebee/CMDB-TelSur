@@ -1,0 +1,60 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <form action="{{ url_volver }}/agregar/nuevo" method="POST">
+            <div class="mb-3">
+                <label for="alias" class="form-label">Alias</label>
+                <input type="text" class="form-control" id="alias" name="alias" required>
+            </div>
+        
+            <div class="mb-3">
+                <label for="prioridad" class="form-label">Prioridad</label>
+                <select class="form-select" id="prioridad" name="prioridad" required>
+                    <option value="" disabled selected>Selecciona la prioridad</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+            </div>
+        
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo</label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                    <option value="" disabled selected>Selecciona el tipo</option>
+                    {% for tipo in tipos %}
+                        <option value="Tipo1">{{ tipo }}</option>
+                    {% endfor %}
+
+                    <!-- Aquí puedes agregar más opciones según los tipos disponibles en la base de datos -->
+                </select>
+            </div>
+        
+            <div class="mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select class="form-select" id="estado" name="estado" required>
+                    <option value="" disabled selected>Selecciona el estado</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                    <option value="En Mantenimiento">En Mantenimiento</option>
+                    <!-- Puedes agregar más estados según tu caso -->
+                </select>
+            </div>
+        
+            <div class="mb-3">
+                <label for="dire_ip" class="form-label">Dirección IP</label>
+                <input type="text" class="form-control" id="dire_ip" name="dire_ip" required>
+            </div>
+        
+            <div class="mb-3">
+                <label for="url" class="form-label">URL</label>
+                <input type="text" class="form-control" id="url" name="url" required>
+            </div>
+        
+            <div class="mb-3">
+                <label for="desc_ci" class="form-label">Descripción</label>
+                <input type="text" class="form-control" id="desc_ci" name="desc_ci" required>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+        
+    </div>
