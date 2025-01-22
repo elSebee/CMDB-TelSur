@@ -101,14 +101,51 @@
     transition: background-color 0.3s ease;
 }
 
+.btn-agregar {
+  background-color: #41b8d5; /* Azul claro */
+  color: black; /* Texto negro */
+  border: none; /* Sin borde */
+  padding: 12px 24px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de fuente */
+  border-radius: 8px; /* Bordes redondeados */
+  display: flex; /* Alinear icono y texto */
+  align-items: center; /* Centrar contenido verticalmente */
+  justify-content: center; /* Centrar contenido horizontalmente */
+  cursor: pointer; /* Cursor de mano */
+  transition: all 0.3s ease; /* Transiciones suaves */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
 .btn-agregar i {
-    margin-right: 8px;
-    font-size: 20px;
+  margin-right: 10px; /* Espacio entre el icono y el texto */
+  font-size: 20px; /* Tamaño del icono */
+  transition: transform 0.3s ease; /* Animación suave para el icono */
 }
 
 .btn-agregar:hover {
-    background-color: #33a3b8;
+  background-color: #33a3b8; /* Azul más oscuro */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  transform: translateY(-2px); /* Efecto de elevación */
 }
+
+.btn-agregar:hover i {
+  transform: scale(1.2); /* Aumenta el tamaño del icono ligeramente */
+}
+
+.btn-agregar:active {
+  background-color: #2c8ca3; /* Azul más profundo al presionar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reducida */
+  transform: translateY(2px); /* Efecto de presión */
+}
+
+.btn-agregar:disabled {
+  background-color: #a8d8e4; /* Azul claro deshabilitado */
+  color: #666; /* Texto gris claro */
+  cursor: not-allowed; /* Cursor de prohibido */
+  box-shadow: none; /* Sin sombra */
+  opacity: 0.7; /* Botón más transparente */
+}
+
 
 .table-container {
     width: 100%;
@@ -162,7 +199,6 @@
     align-items: center; /* Alinea verticalmente en el centro */
     border-bottom: 1px solid #2b343c;
     padding: 10px;
-    cursor: pointer;
 }
 
 .card-expand {
@@ -192,4 +228,30 @@
 /* Cuando se expande */
 .card-expand.expanded {
     max-height: 200px; /* Ajusta según el contenido esperado */
+}
+
+.btn-enviar {
+  background-color: #068c64; /* Verde atractivo */
+  color: white; /* Texto en blanco */
+  font-size: 16px; /* Tamaño de letra */
+  font-weight: bold; /* Negrita */
+  padding: 12px 24px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano */
+  transition: all 0.3s ease; /* Transición suave para hover */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.btn-enviar:hover {
+  background-color: #066045; /* Verde más oscuro al pasar el mouse */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más intensa */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+.btn-enviar:active {
+  background-color: #066045; /* Verde más oscuro al presionar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reducida */
+  transform: translateY(2px); /* Efecto de presión */
 }

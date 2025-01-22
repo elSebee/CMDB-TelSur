@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from app.controller.cis_controller import getAllCis, getCampos
 
 alcance_cis = Blueprint("cis", __name__)
@@ -28,5 +28,6 @@ def agregar():
 
 @alcance_cis.route("/agregar/nuevo", methods=['POST'])
 def nuevo():
+    print(request.form)
     flash('CI creado correctamente!', 'success')
     return redirect(url_for('cis.cis'))

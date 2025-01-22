@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
-from app.controller.areas_controller import getAllAreas, getCampos
+from flask import Blueprint, render_template, redirect, url_for, flash, request
+from app.controller.areas_controller import getAllAreas, getCampos, postArea
 
 
 alcance_areas = Blueprint("areas", __name__)
@@ -24,5 +24,9 @@ def agregar():
 
 @alcance_areas.route("/agregar/nuevo", methods=['POST'])
 def nuevo():
-    flash('Área creada correctamente!', 'success')
+    nombre = request.form.get('nombre')
+    empresa = request.form.get('empresa')
+    desc_area = request.form.get('desc_area')
+    crear = postArea(nombre, empresa, desc_area)
+    flash(crear['mensaje'], 'success' if crear['estado'] == 'éxito' else 'danger')
     return redirect(url_for('areas.areas'))

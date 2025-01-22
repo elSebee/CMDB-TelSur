@@ -40,7 +40,7 @@
 
                         {% elif campo.type == 'checkbox' %}
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" class="btn btn-action" style="background-color: #33a3b8;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 Seleccionar Servicios Involucrados con el CI
                             </button>
                     
@@ -49,7 +49,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header d-flex flex-column">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="Cerrar esta ventana no elimina las selecciones."></button>
                                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Selecciona los Servicios Involucrados con el Item...</h1>
                                             <p class="text-danger" id="staticBackdropLabel">
                                                 <strong>Advertencia!</strong> Los servicios aparecerán únicamente cuando sean agregados en la pestaña <em>"Servicios"</em>.
@@ -58,14 +58,13 @@
                                         <div class="modal-body d-flex flex-column">
                                             {% for option in campo.options %}
                                                 <div>
-                                                    <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ option }}">
+                                                    <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ campo.name }}" value="{{ option }}">
                                                     <label class="form-check-label" for="{{ option }}">{{ option }}</label>
                                                 </div>
                                             {% endfor %}
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Listo</button>
+                                            <button type="button" class="btn btn-secondary" style="background-color: #068c64;" data-bs-dismiss="modal">Listo</button>
                                         </div>
                                     </div>
                                 </div>
@@ -76,14 +75,11 @@
             {% endfor %}
 
             <div class="d-flex" style="margin-top: 50px;">
-                <button type="submit" class="btn btn-agregar" style="background-color: #068c64; color: white;"><i class="bi bi-check"></i>Agregar</button>
+                <button type="submit" class="btn-enviar"><i class="bi bi-check"></i>Agregar</button>
             </div>
-
 
         </form>
     </div>
-    
-    
     
 </div>
 {% endblock %}
