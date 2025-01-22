@@ -5,9 +5,17 @@ alcance_servicios = Blueprint("servicios", __name__)
 
 @alcance_servicios.route("/", methods=['GET'])
 def servicios():
-    ids = ["Acción", "ID", "Alias", "Nombre", "Área Responsable", "Descripción"]
+    dic_valores = {
+        "id_servicio": "ID",
+        "alias": "Alias",
+        "nomb_servicio": "Nombre", 
+        "id_area_responsable": "Área Responsable", 
+        "desc_servicio": "Descripción"
+    }
+    cabeceras = list(dic_valores.values())
+    cabeceras.insert(0, "Acción")
     servicios = getAllServicios()
-    return render_template("leer.html", breadcrumb="Servicios", valores=servicios, ids=ids, url_agregar=url_for('servicios.agregar'))
+    return render_template("leer.html", breadcrumb="Servicios", valores=servicios, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar=url_for('servicios.agregar'))
 
 @alcance_servicios.route("/agregar", methods=['GET'])
 def agregar():

@@ -5,9 +5,19 @@ alcance_personas = Blueprint("personas", __name__)
 
 @alcance_personas.route("/", methods=['GET'])
 def personas():
-    ids = ["Acción", "R.U.T", "Nombre", "Área", "Cargo", "Mail", "Teléfono", "Método Aviso"]
+    dic_valores = {
+        "rut": "R.U.T",
+        "nomb_persona": "Nombre",
+        "id_area": "Área", 
+        "desc_cargo": "Cargo", 
+        "mail": "Mail", 
+        "celular": "Teléfono", 
+        "mtdo_aviso_default": "Método Aviso"
+    }
+    cabeceras = list(dic_valores.values())
+    cabeceras.insert(0, "Acción")
     personas = getAllPersonas()
-    return render_template("leer.html", breadcrumb="Personas", valores=personas, ids=ids, url_agregar=url_for('personas.agregar'))
+    return render_template("leer.html", breadcrumb="Personas", valores=personas, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar=url_for('personas.agregar'))
 
 @alcance_personas.route("/agregar", methods=['GET'])
 def agregar():

@@ -6,9 +6,16 @@ alcance_areas = Blueprint("areas", __name__)
 
 @alcance_areas.route("/", methods=['GET'])
 def areas():
-    ids = ["Acción", "ID", "Nombre", "Empresa", "Descripción"]
+    dic_valores = {
+        "id_area": "ID",
+        "nombre": "Nombre",
+        "empresa": "Empresa", 
+        "desc_area": "Descripción"
+    }
+    cabeceras = list(dic_valores.values())
+    cabeceras.insert(0, "Acción")
     areas=getAllAreas()
-    return render_template("leer.html", breadcrumb="Áreas", valores=areas, ids=ids, url_agregar=url_for('areas.agregar'))
+    return render_template("leer.html", breadcrumb="Áreas", valores=areas, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar=url_for('areas.agregar'))
 
 @alcance_areas.route("/agregar", methods=['GET'])
 def agregar():

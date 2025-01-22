@@ -130,12 +130,7 @@
     margin: 0 10px; /* Espaciado entre los elementos */
 }
 
-.card-body {
-    display: flex; /* Convierte el contenedor en flexbox */
-    justify-content: space-between; /* Distribuye los elementos uniformemente */
-    align-items: center; /* Alinea verticalmente en el centro */
-    border-bottom: 1px solid #2b343c;
-}
+
 .card-title {
     margin: 0; /* Elimina márgenes innecesarios para una mejor alineación */
     font-size: 14px; /* Ajusta el tamaño del texto si es necesario */
@@ -147,4 +142,54 @@
 .btn-action:hover {
     opacity: 0.9
 }
+.url-break {
+    overflow-wrap: break-word;
+    max-width: 800px;
+    font-size: 0.8em;
+    word-break: normal;
+}
 
+.url-break {
+    overflow-wrap: anywhere;    /* Permite romper palabras largas, incluidas URLs */
+    word-break: break-word;     /* Asegura que las palabras puedan dividirse */
+    white-space: normal;        /* Permite saltos de línea normales */
+    font-size: 0.8em;
+}
+
+.card-body {
+    display: flex; /* Convierte el contenedor en flexbox */
+    justify-content: space-between; /* Distribuye los elementos uniformemente */
+    align-items: center; /* Alinea verticalmente en el centro */
+    border-bottom: 1px solid #2b343c;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.card-expand {
+    max-height: 0; /* Oculta inicialmente el contenido */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 10px; /* Espaciado interno para contenido */
+}
+
+.card-expand p {
+    margin: 5px 0;
+}
+
+.btn-expand {
+    background-color: #41b8d5;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-expand:hover {
+    background-color: #33a3b8;
+}
+
+/* Cuando se expande */
+.card-expand.expanded {
+    max-height: 200px; /* Ajusta según el contenido esperado */
+}

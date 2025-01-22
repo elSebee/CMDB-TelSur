@@ -4,9 +4,15 @@ alcance_dependencias = Blueprint("dependencias", __name__)
 
 @alcance_dependencias.route("/", methods=['GET'])
 def dependencias():
-    ids = ["Acción", "ID", "", "", "", "", "", "", "", ""]
+    dic_valores = {
+        "id_dependencia": "ID",
+        "nombre_dependencia": "Nombre",
+        "desc_dependencia": "Descripción"
+    }
+    cabeceras = list(dic_valores.values())
+    cabeceras.insert(0, "Acción")
     dependencias = []
-    return render_template("leer.html", breadcrumb="Dependencias", valores=dependencias, ids=ids, url_agregar="/dependencias/agregar")
+    return render_template("leer.html", breadcrumb="Dependencias", valores=dependencias, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar="/dependencias/agregar")
 
 @alcance_dependencias.route("/agregar", methods=['GET'])
 def dependenciasAgregar():

@@ -5,9 +5,21 @@ alcance_cis = Blueprint("cis", __name__)
 
 @alcance_cis.route("/", methods=['GET'])
 def cis():
-    ids = ["Acción", "ID", "Alias", "Prioridad", "Tipo", "Estado", "Dirección IP", "Fecha", "URL", "Descripción"]
+    dic_valores = {
+        "id_ci": "ID",
+        "alias": "Alias",
+        "prioridad": "Prioridad", 
+        "tipo_ci": "Tipo", 
+        "estado": "Estado", 
+        "dire_ip": "Dirección IP", 
+        "fech_actualizacion": "Fecha", 
+        "url": "URL", 
+        "desc_ci": "Descripción"
+    }
+    cabeceras = list(dic_valores.values())[:-3]
+    cabeceras.insert(0, "Acción")
     cis = getAllCis()
-    return render_template("leer.html", breadcrumb="CI's", valores=cis, ids=ids, url_agregar=url_for('cis.agregar'))
+    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar=url_for('cis.agregar'))
 
 @alcance_cis.route("/agregar", methods=['GET'])
 def agregar():

@@ -11,7 +11,7 @@
 <!-- Main content -->
 <div class="container-fluid mt-4">
     <div style="display: flex; align-items: center; gap: 10px; background-color: #d6d4d4;">
-        <button onclick="location.href='{{ url_volver }}'" class="btn btn-agregar" style="margin: 3px; display: flex; align-items: center;">
+        <button onclick="location.href='{{ url_volver }}'" class="btn btn-secondary" style="margin: 3px; display: flex; align-items: center;">
             <i class="bi bi-chevron-left" style="font-size: 20px; margin-right: 8px;"></i>
             <p style="margin: 0;">Volver</p>
         </button>        
@@ -37,11 +37,39 @@
                                     <option value="{{ option }}">{{ option }}</option>
                                 {% endfor %}
                             </select>
+
                         {% elif campo.type == 'checkbox' %}
-                            {% for option in campo.options %}
-                                <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ option }}">
-                                <label class="form-check-label" for="{{ option }}">{{ option }}</label>
-                            {% endfor %}
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Seleccionar Servicios Involucrados con el CI
+                            </button>
+                    
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex flex-column">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Selecciona los Servicios Involucrados con el Item...</h1>
+                                            <p class="text-danger" id="staticBackdropLabel">
+                                                <strong>Advertencia!</strong> Los servicios aparecerán únicamente cuando sean agregados en la pestaña <em>"Servicios"</em>.
+                                            </p>
+                                        </div>
+                                        <div class="modal-body d-flex flex-column">
+                                            {% for option in campo.options %}
+                                                <div>
+                                                    <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ option }}">
+                                                    <label class="form-check-label" for="{{ option }}">{{ option }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-primary">Listo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                 </div>

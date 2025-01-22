@@ -34,16 +34,17 @@
     </div>
     <!-- Contenedor oculto para la lista de strings -->
     <script id="dataStrings" type="application/json">
-        {{ ids | tojson }}
+        {{ cabeceras | tojson }}
     </script>
     <!-- Llamamos al script externo -->
     <script src="/static/js/cabeceraTabla.js"></script>
+    
     
 
     <!-- Agregar más contenido específico de la página -->
     {% for valor in valores %}
 
-    <div class="card">
+    <div class="card" style="margin-top: 5px;">
         <div class="card-body">
             <div class="button-group">
                 <button class="btn btn-action" style="background-color: #ff8130; color: black;">
@@ -54,14 +55,24 @@
                 </button>
             </div>
             <!-- Itera sobre todos los atributos del objeto 'valor' -->
-            {% for key, attribute in valor.__dict__.items() %}
-                <!-- Asegúrate de no imprimir los atributos internos de SQLAlchemy -->
-                {% if not key.startswith('_') %}
-                    <p><strong>{{ key }}:</strong> {{ attribute }}</p>
+            {% for key, display_name in dic_valores.items() %}
+                {% if not key.startswith('_') and key not in ['url', 'desc_ci', 'fech_actualizacion'] %}
+                    <p class="url-break">{{ valor.__dict__[key] }}</p>
+                {% endif %}
+            {% endfor %}
+            {% if breadcrumb == "CI's" %}
+                <button class="btn-expand"><i class="bi bi-caret-down-fill"></i></button>
+            {% endif %}
+        </div>
+        <div class="card-expand">
+            {% for key, display_name in dic_valores.items() %}
+                {% if key in ['url', 'desc_ci', 'fech_actualizacion'] %}
+                    <p><strong>{{ display_name }}:</strong> {{ valor.__dict__[key] }}</p>
                 {% endif %}
             {% endfor %}
         </div>
     </div>
+    
 
     {% endfor %}
 
