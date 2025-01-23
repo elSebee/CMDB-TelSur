@@ -19,3 +19,28 @@ def getCampos():
         {"name": "mtdo_aviso_default", "type": "select", "label": "Método de Aviso Predeterminado", "options": ["Mail", "Celular"], "required": False},
     ]
     return campos
+
+def getDicValores():
+    return {
+        "rut": "R.U.T",
+        "nomb_persona": "Nombre",
+        "id_area": "Área", 
+        "desc_cargo": "Cargo", 
+        "mail": "Mail", 
+        "celular": "Teléfono", 
+        "mtdo_aviso_default": "Método Aviso"
+    }
+
+def getPK():
+    persona = Personas(
+        rut="12345678-9",
+        nomb_persona="Nombre Temporal",
+        id_area=1,
+        desc_gerencia="Gerencia Temporal",
+        desc_cargo="Cargo Temporal",
+        mail="correo@temporal.com",
+        celular=987654321,
+        codi_horario=1234,
+        mtdo_aviso_default="Email"
+    )
+    return persona.pk_name

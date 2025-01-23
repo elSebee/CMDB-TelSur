@@ -1,32 +1,30 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from app.controller.areas_controller import getAllAreas, getCampos, postArea
-
+from app.controller.areas_controller import getAllAreas, getCampos, getDicValores, postArea, getPK, deleteArea
 
 alcance_areas = Blueprint("areas", __name__)
 
 @alcance_areas.route("/", methods=['GET'])
 def areas():
-    dic_valores = {
-        "id_area": "ID",
-        "nombre": "Nombre",
-        "empresa": "Empresa", 
-        "desc_area": "Descripción"
-    }
+    dic_valores = getDicValores()
     cabeceras = list(dic_valores.values())
     cabeceras.insert(0, "Acción")
     areas=getAllAreas()
-    return render_template("leer.html", breadcrumb="Áreas", valores=areas, dic_valores=dic_valores, cabeceras=cabeceras, url_agregar=url_for('areas.agregar'))
+    pk=getPK()
+    return render_template("leer.html", breadcrumb="Áreas", valores=areas, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='areas')
 
 @alcance_areas.route("/agregar", methods=['GET'])
 def agregar():
     campos = getCampos()
-    return render_template("agregar.html", breadcrumb="Áreas", campos=campos, url_volver=url_for('areas.areas'), url_crear=url_for('areas.nuevo'))
+    return render_template("agregar.html", breadcrumb="Áreas", campos=campos, url='areas')
 
 @alcance_areas.route("/agregar/nuevo", methods=['POST'])
 def nuevo():
-    nombre = request.form.get('nombre')
-    empresa = request.form.get('empresa')
-    desc_area = request.form.get('desc_area')
-    crear = postArea(nombre, empresa, desc_area)
+    crear = postArea(request.form)
     flash(crear['mensaje'], 'success' if crear['estado'] == 'éxito' else 'danger')
+    return redirect(url_for('areas.areas'))
+
+@alcance_areas.route("/eliminar/<int:id>", methods=['POST'])
+def eliminar(id):
+    eliminar = deleteArea(id)
+    flash(eliminar['mensaje'], 'success' if eliminar['estado'] == 'éxito' else 'danger')
     return redirect(url_for('areas.areas'))

@@ -1,9 +1,11 @@
+from sqlalchemy import Sequence
+from app.controller.serv_ci_controller import getServCIbyCI
 from app.database.db import db
 
 class CMDBConfItems(db.Model):
     __tablename__ = 'PROCT_CMDB_CONF_ITEMS'
 
-    id_ci = db.Column(db.Integer, primary_key=True)
+    id_ci = db.Column(db.Integer, Sequence('procq_idcmdb_conf_items', metadata=db.metadata), primary_key=True)
     alias = db.Column(db.String(100))
     prioridad = db.Column(db.String(10))
     tipo_ci = db.Column(db.String(30), nullable=False)
@@ -20,3 +22,22 @@ class CMDBConfItems(db.Model):
             name='ck_tipo_ci'
         ),
     )
+    
+    def __init__(self, alias, prioridad, tipo_ci, estado, fech_actualizacion, dire_ip, puerto, desc_ci, url):
+        self.alias = alias
+        self.prioridad = prioridad
+        self.tipo_ci = tipo_ci
+        self.estado = estado
+        self.fech_actualizacion = fech_actualizacion
+        self.dire_ip = dire_ip
+        self.puerto = puerto
+        self.desc_ci = desc_ci
+        self.url = url
+
+    @property
+    def pk_name(self):
+        return 'id_ci'
+    
+    @property
+    def relaciones(self):
+        return getServCIbyCI(self.id_ci)

@@ -1,6 +1,6 @@
 from flask import Flask, request
+from flask_wtf.csrf import CSRFProtect
 from config import Config
-from flask_sqlalchemy import SQLAlchemy
 from app.database.db import db
 import cx_Oracle
 import os
@@ -13,7 +13,7 @@ app.config.from_object(Config)
 cx_Oracle.init_oracle_client(lib_dir=os.getenv("ORACLE_LIB_DIR"))
 
 db.init_app(app)
-
+csrf = CSRFProtect(app)
 
 @app.context_processor
 def inject_request():

@@ -14,3 +14,21 @@ def getCampos():
         {"name": "desc_servicio", "type": "text", "label": "Descripción del Servicio", "required": False}
     ]
     return campos
+
+def getDicValores():
+    return {
+        "id_servicio": "ID",
+        "alias": "Alias",
+        "nomb_servicio": "Nombre", 
+        "id_area_responsable": "Área Responsable", 
+        "desc_servicio": "Descripción"
+    }
+
+def getPK():
+    servicio = Servicios(
+        alias="TempAlias",
+        id_area_responsable=1,
+        nomb_servicio="Servicio Temporal",
+        desc_servicio="Descripción del Servicio Temporal"
+    )
+    return servicio.pk_name

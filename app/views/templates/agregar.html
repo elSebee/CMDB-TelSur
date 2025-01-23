@@ -11,7 +11,8 @@
 <!-- Main content -->
 <div class="container-fluid mt-4">
     <div style="display: flex; align-items: center; gap: 10px; background-color: #d6d4d4;">
-        <button onclick="location.href='{{ url_volver }}'" class="btn btn-secondary" style="margin: 3px; display: flex; align-items: center;">
+        {% set endpoint = url ~ '.' ~ url %}
+        <button onclick="location.href='{{ url_for(endpoint) }}'" class="btn btn-secondary" style="margin: 3px; display: flex; align-items: center;">
             <i class="bi bi-chevron-left" style="font-size: 20px; margin-right: 8px;"></i>
             <p style="margin: 0;">Volver</p>
         </button>        
@@ -19,7 +20,9 @@
     </div>
     
     <div class="container-fluid p-4">
-        <form method="POST" action="{{ url_crear }}">
+        {% set endpoint = url ~ '.nuevo' %}
+        <form method="POST" action="{{ url_for(endpoint) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             {% for campo in campos %}
                 <div class="d-flex align-items-center mb-3">
                     <div class="me-3" style="width: 100px;">
@@ -28,9 +31,7 @@
                         </label>
                     </div>
                     <div class="flex-grow-1" style="padding-left: 100px;">
-                        {% if campo.type == 'text' %}
-                            <input type="text" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
-                        {% elif campo.type == 'select' %}
+                        {% if campo.type == 'select' %}
                             <select class="form-select" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
                                 <option value="" disabled selected>Selecciona {{ campo.label }}</option>
                                 {% for option in campo.options %}
@@ -56,10 +57,11 @@
                                             </p>
                                         </div>
                                         <div class="modal-body d-flex flex-column">
-                                            {% for option in campo.options %}
+                                            {% for id_servicio, alias in campo.options.items() %}
                                                 <div>
-                                                    <input class="form-check-input" type="checkbox" id="{{ option }}" name="{{ campo.name }}" value="{{ option }}">
-                                                    <label class="form-check-label" for="{{ option }}">{{ option }}</label>
+                                                    <input class="form-check-input" type="checkbox" id="{{ id_servicio }}" name="{{ campo.name }}" value="{{ id_servicio }}">
+                                                    <label class="form-check-label" for="{{ id_servicio }}">{{ alias }}</label>
+                                                    <input type="relacion" placeholder="Describe la Relación" class="form-control" id="desc_relacion" name="desc_relacion">
                                                 </div>
                                             {% endfor %}
                                         </div>
@@ -69,6 +71,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% else %}
+                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
                         {% endif %}
                     </div>
                 </div>

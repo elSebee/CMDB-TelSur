@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Breadcrumb -->
 <div style="display: flex; align-items: center; gap: 10px;">
-    <button onclick="location.href='/'" class="btn btn-primary" style="border: none; background: none; padding: 0;">
+    <button onclick="location.href='/'" class="btn btn-primary" title="Home" style="border: none; background: none; padding: 0;">
         <i class="bi bi-house-fill" style="font-size: 22px; color: #33a3b8;"></i>
     </button>
     <p style="margin: 0;">/ {{ breadcrumb }}</p>
@@ -23,7 +23,8 @@
         {% endif %}
     {% endwith %}
     
-    <button onclick="location.href='{{ url_agregar }}'" class="btn-agregar">
+    {% set endpoint = url ~ '.agregar' %}
+    <button onclick="location.href='{{ url_for(endpoint) }}'" class="btn-agregar">
         <i class="bi bi-plus-circle-dotted"></i>
         AGREGAR NUEVO
     </button>
@@ -47,16 +48,35 @@
     <div class="card" style="margin-top: 5px;">
         <div class="card-body">
             <div class="button-group">
-                <button class="btn btn-action" style="background-color: #ff8130; color: black;">
+                <button class="btn btn-action" title="Editar" style="background-color: #ff8130; color: black;">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
-                <button class="btn btn-action" style="background-color: #ff3636; color: black;">
+                <button class="btn btn-action" title="Eliminar" style="background-color: #D13B38; color: black;"  data-bs-toggle="modal" data-bs-target="#eliminarModal-{{ valor[pk] }}">
                     <i class="bi bi-trash3-fill"></i>
                 </button>
+                <!-- Modal -->
+                <div class="modal fade" id="eliminarModal-{{ valor[pk] }}" tabindex="-1" aria-labelledby="eliminarModalLabel-{{ valor[pk] }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header d-flex flex-column">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h1 class="modal-title fs-5 text-danger" id="eliminarModalLabel-{{ valor[pk] }}">¿Desea eliminar de <em>{{ breadcrumb }}</em> el registro con <strong>ID: {{ valor[pk] }}</strong>?</h1>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                {% set endpoint = url ~ '.eliminar' %}
+                                <form action="{{ url_for(endpoint, id=valor[pk]) }}" method="post" style="display:inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Itera sobre todos los atributos del objeto 'valor' -->
             {% for key, display_name in dic_valores.items() %}
-                {% if not key.startswith('_') and key not in ['url', 'desc_ci', 'fech_actualizacion'] %}
+                {% if not key.startswith('_') and key not in ['url', 'desc_ci', 'fech_actualizacion', 'relaciones'] %}
                     <p class="url-break">{{ valor.__dict__[key] }}</p>
                 {% endif %}
             {% endfor %}
