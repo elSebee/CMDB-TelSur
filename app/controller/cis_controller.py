@@ -1,12 +1,16 @@
 from app.models.cis_model import CMDBConfItems
 from app.controller.servicios_controller import getAllServicios
-from app.controller.serv_ci_controller import postServCI, getServCIbyCI
+from app.controller.serv_ci_controller import postServCI, updateServCI
 from app.database.db import db
 from datetime import datetime
 
 def getAllCis():
     cis = CMDBConfItems.query.order_by(CMDBConfItems.id_ci.asc()).all()
     return cis
+
+def getCiById(id):
+    ci = CMDBConfItems.query.get_or_404(id)
+    return ci
 
 def getCampos():
     servicios = getAllServicios()
@@ -116,4 +120,60 @@ def deleteCI(id):
         return {
             "estado": "error",
             "mensaje": f"¡Error al eliminar el Item: {str(e)}!"
+        }
+    
+
+def updateCI(form, id_ci):
+    alias = form.get('alias')
+    prioridad = form.get('prioridad')
+    tipo_ci = form.get('tipo_ci')
+    estado = form.get('estado')
+    fech_actualizacion = datetime.today().date()
+    dire_ip = form.get('dire_ip')
+    puerto = form.get('puerto')
+    desc_ci = form.get('desc_ci')
+    url = form.get('url')
+    serv_ci = form.getlist('serv_ci')
+    desc_relacion = form.get('desc_relacion')
+
+    try:
+        ci_a_actualizar = getCiById(id_ci)
+        if not ci_a_actualizar:
+            return {
+                "estado": "error",
+                "mensaje": "¡Item de Configuración no encontrado!"
+            }
+
+        # Actualiza los campos del registro
+        ci_a_actualizar.alias = alias
+        ci_a_actualizar.prioridad = prioridad
+        ci_a_actualizar.tipo_ci = tipo_ci
+        ci_a_actualizar.estado = estado
+        ci_a_actualizar.fech_actualizacion = fech_actualizacion
+        ci_a_actualizar.dire_ip = dire_ip
+        ci_a_actualizar.puerto = puerto
+        ci_a_actualizar.desc_ci = desc_ci
+        ci_a_actualizar.url = url
+
+        # Guarda los cambios en la base de datos
+        db.session.commit()
+
+        actualizar_serv_ci = updateServCI(id_ci, serv_ci, desc_relacion)
+
+        if actualizar_serv_ci['estado'] == 'error':
+            return {
+                "estado": "error",
+                "mensaje": actualizar_serv_ci['mensaje']
+            }
+
+        return {
+            "estado": "éxito",
+            "mensaje": "¡Item de Configuración actualizado con éxito!"
+        }
+    
+    except Exception as e:
+        db.session.rollback()
+        return {
+            "estado": "error",
+            "mensaje": f"¡Error al actualizar el Item: {str(e)}!"
         }

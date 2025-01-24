@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from app.controller.areas_controller import getAllAreas, getCampos, getDicValores, postArea, getPK, deleteArea
+from app.controller.areas_controller import getAllAreas, getCampos, getDicValores, postArea, getPK, deleteArea, updateArea, getAreaById
 
 alcance_areas = Blueprint("areas", __name__)
 
@@ -27,4 +27,16 @@ def nuevo():
 def eliminar(id):
     eliminar = deleteArea(id)
     flash(eliminar['mensaje'], 'success' if eliminar['estado'] == 'éxito' else 'danger')
+    return redirect(url_for('areas.areas'))
+
+@alcance_areas.route("/editar/<int:id>", methods=['GET'])
+def editar(id):
+    area = getAreaById(id)
+    campos = getCampos()
+    return render_template("editar.html", breadcrumb="Áreas", campos=campos, area=area, id=id, url='areas')
+
+@alcance_areas.route("/actualizar/<int:id>", methods=['POST'])
+def actualizar(id):
+    actualizar = updateArea(request.form, id)
+    flash(actualizar['mensaje'], 'success' if actualizar['estado'] == 'éxito' else 'danger')
     return redirect(url_for('areas.areas'))

@@ -1,8 +1,42 @@
 from app.models.personas_model import Personas
+from app.models.areas_model import Areas
 from app.controller.areas_controller import getAllAreas
+from app.database.db import db
+from sqlalchemy import asc
+
+class PersonaConArea:
+    def __init__(self, rut, nomb_persona, nomb_area, desc_gerencia, desc_cargo, mail, celular, codi_horario, mtdo_aviso_default):
+        self.rut = rut
+        self.nomb_persona = nomb_persona
+        self.nomb_area = nomb_area
+        self.desc_gerencia = desc_gerencia
+        self.desc_cargo = desc_cargo
+        self.mail = mail
+        self.celular = celular
+        self.codi_horario = codi_horario
+        self.mtdo_aviso_default = mtdo_aviso_default
 
 def getAllPersonas():
-    return Personas.query.all()
+    resultados = (
+        db.session.query(
+            Personas.rut,
+            Personas.nomb_persona,
+            Areas.nombre,  # Seleccionar el nombre del área
+            Personas.desc_gerencia,
+            Personas.desc_cargo,
+            Personas.mail,
+            Personas.celular,
+            Personas.codi_horario,
+            Personas.mtdo_aviso_default
+        )
+        .join(Areas, Personas.id_area == Areas.id_area, isouter=True)  # Hacer el JOIN
+        .order_by(asc(Personas.nomb_persona))
+        .all()
+    )
+    return [PersonaConArea(*row) for row in resultados]
+
+def getPersonaById(id):
+    return Personas.query.get_or_404(id)
 
 def getCampos():
     areas = getAllAreas()
@@ -44,3 +78,91 @@ def getPK():
         mtdo_aviso_default="Email"
     )
     return persona.pk_name
+
+def postPersona(form):
+    rut = form.get('rut')
+    nomb_persona = form.get('nomb_persona')
+    id_area = form.get('id_area')
+    desc_gerencia = form.get('desc_gerencia')
+    desc_cargo = form.get('desc_cargo')
+    mail = form.get('mail')
+    celular = form.get('celular')
+    codi_horario = form.get('codi_horario')
+    mtdo_aviso_default = form.get('mtdo_aviso_default')
+
+    try:
+        new_persona = Personas(rut=rut, nomb_persona=nomb_persona, id_area=id_area, desc_gerencia=desc_gerencia, desc_cargo=desc_cargo, mail=mail, celular=celular, codi_horario=codi_horario, mtdo_aviso_default=mtdo_aviso_default)
+        db.session.add(new_persona)
+        db.session.commit()
+        return {
+            "estado": "éxito",
+            "mensaje": "¡Persona creada con éxito!",
+        }
+    except Exception as e:
+        db.session.rollback()
+        return {
+            "estado": "error",
+            "mensaje": f"¡Error al crear la Persona: {str(e)}!"
+        }
+    
+def deletePersona(id):
+    try:
+        persona = getPersonaById(id)  # Si no existe, lanza un error 404
+
+        db.session.delete(persona)
+        db.session.commit()
+
+        return {
+            "estado": "éxito",
+            "mensaje": "¡Persona eliminada con éxito!",
+        }
+    except Exception as e:
+        db.session.rollback()
+        return {
+            "estado": "error",
+            "mensaje": f"¡Error al eliminar la Persona: {str(e)}!"
+        }
+    
+def updatePersona(form, id):
+    rut = form.get('rut')
+    nomb_persona = form.get('nomb_persona')
+    id_area = form.get('id_area')
+    desc_gerencia = form.get('desc_gerencia')
+    desc_cargo = form.get('desc_cargo')
+    mail = form.get('mail')
+    celular = form.get('celular')
+    codi_horario = form.get('codi_horario')
+    mtdo_aviso_default = form.get('mtdo_aviso_default')
+
+    try:
+        persona_a_actualizar = getPersonaById(id)
+        if not persona_a_actualizar:
+            return {
+                "estado": "error",
+                "mensaje": "!Persona no encontrada!"
+            }
+        
+        persona_a_actualizar.rut = rut
+        persona_a_actualizar.nomb_persona = nomb_persona
+        persona_a_actualizar.id_area = id_area
+        persona_a_actualizar.desc_gerencia = desc_gerencia
+        persona_a_actualizar.desc_cargo = desc_cargo
+        persona_a_actualizar.mail = mail
+        persona_a_actualizar.celular = celular
+        persona_a_actualizar.codi_horario = codi_horario
+        persona_a_actualizar.mtdo_aviso_default = mtdo_aviso_default
+
+        # Guarda los cambios en la base de datos
+        db.session.commit()
+
+        return {
+            "estado": "éxito",
+            "mensaje": "¡Persona actualizada con éxito!"
+        }
+
+    except Exception as e:
+        db.session.rollback()
+        return {
+            "estado": "error",
+            "mensaje": f"¡Error al actualizar la Persona: {str(e)}!"
+        }

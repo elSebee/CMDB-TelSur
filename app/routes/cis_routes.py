@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from app.controller.cis_controller import getAllCis, getCampos, getDicValores, getPK, postCI, deleteCI
+from app.controller.cis_controller import getAllCis, getCampos, getDicValores, getPK, postCI, deleteCI, updateCI, getCiById
 
 alcance_cis = Blueprint("cis", __name__)
 
@@ -27,4 +27,16 @@ def nuevo():
 def eliminar(id):
     eliminar = deleteCI(id)
     flash(eliminar['mensaje'], 'success' if eliminar['estado'] == 'éxito' else 'danger')
+    return redirect(url_for('cis.cis'))
+
+@alcance_cis.route("/editar/<int:id>", methods=['GET'])
+def editar(id):
+    ci = getCiById(id)
+    campos = getCampos()
+    return render_template("editar.html", breadcrumb="CI's", campos=campos, ci=ci, id=id, url='cis')
+
+@alcance_cis.route("/actualizar/<int:id>", methods=['POST'])
+def actualizar(id):
+    actualizar = updateCI(request.form, id)
+    flash(actualizar['mensaje'], 'success' if actualizar['estado'] == 'éxito' else 'danger')
     return redirect(url_for('cis.cis'))

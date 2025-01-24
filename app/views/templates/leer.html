@@ -48,10 +48,13 @@
     <div class="card" style="margin-top: 5px;">
         <div class="card-body">
             <div class="button-group">
-                <button class="btn btn-action" title="Editar" style="background-color: #ff8130; color: black;">
+                {% set endpoint_editar = url ~ '.editar' %}
+                <button onclick="location.href='{{ url_for(endpoint_editar, id=valor[pk]) }}'" class="btn btn-action" title="Editar" style="background-color: #ff8130; color: black;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
                 <button class="btn btn-action" title="Eliminar" style="background-color: #D13B38; color: black;"  data-bs-toggle="modal" data-bs-target="#eliminarModal-{{ valor[pk] }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <i class="bi bi-trash3-fill"></i>
                 </button>
                 <!-- Modal -->
