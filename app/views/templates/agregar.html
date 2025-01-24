@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         {% else %}
-                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
+                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %} {% if campo.name == 'rut' %} maxlength="12" {% endif %}>
                         {% endif %}
                     </div>
                 </div>

@@ -21,13 +21,13 @@ def getAllPersonas():
         db.session.query(
             Personas.rut,
             Personas.nomb_persona,
-            Areas.nombre,  # Seleccionar el nombre del área
             Personas.desc_gerencia,
             Personas.desc_cargo,
             Personas.mail,
             Personas.celular,
             Personas.codi_horario,
-            Personas.mtdo_aviso_default
+            Personas.mtdo_aviso_default,
+            Areas.nombre,  # Seleccionar el nombre del área
         )
         .join(Areas, Personas.id_area == Areas.id_area, isouter=True)  # Hacer el JOIN
         .order_by(asc(Personas.nomb_persona))
@@ -40,7 +40,7 @@ def getPersonaById(id):
 
 def getCampos():
     areas = getAllAreas()
-    opciones_areas = [area.nombre for area in areas]
+    opciones_areas = {area.id_area: area.nombre for area in areas}
     campos = [
         {"name": "rut", "type": "text", "label": "R.U.T", "required": True},
         {"name": "nomb_persona", "type": "text", "label": "Nombre", "required": True},
