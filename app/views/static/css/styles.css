@@ -254,3 +254,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reducida */
   transform: translateY(2px); /* Efecto de presión */
 }
+
+.table-responsive {
+    margin-top: 20px;
+}

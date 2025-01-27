@@ -6,7 +6,7 @@ alcance_cis = Blueprint("cis", __name__)
 @alcance_cis.route("/", methods=['GET'])
 def cis():
     dic_valores = getDicValores()
-    cabeceras = list(dic_valores.values())[:-3]
+    cabeceras = list(dic_valores.values())
     cabeceras.insert(0, "Acción")
     cis = getAllCis()
     pk=getPK()

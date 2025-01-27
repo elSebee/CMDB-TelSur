@@ -5,9 +5,9 @@ class Areas(db.Model):
     __tablename__ = 'PROCT_AREAS'
 
     id_area = db.Column(db.Integer, Sequence('procq_idareas', metadata=db.metadata), primary_key=True)
-    desc_area = db.Column(db.String(200), nullable=True, unique=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    empresa = db.Column(db.String(100), nullable=False)
+    nombre = db.Column(db.String(100), nullable=False, unique=True)
+    desc_area = db.Column(db.String(800))
+    empresa = db.Column(db.String(50))
 
     def __init__(self, nombre, empresa, desc_area):
         self.nombre = nombre
