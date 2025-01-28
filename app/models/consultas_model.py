@@ -5,7 +5,7 @@ class Consultas(db.Model):
 
     id_consulta = db.Column(db.Integer(), primary_key=True)
     id_servicio = db.Column(db.Integer, db.ForeignKey("PROCT_SERVICIOS.id_servicio"))
-    desc_consulta = db.Column(db.Clob)
+    desc_consulta = db.Column(db.Text)
     id_tipo_consulta = db.Column(db.Integer)
     id_contexto = db.Column(db.String(100))
     fech_creacion = db.Column(db.Date)
@@ -43,3 +43,7 @@ class Consultas(db.Model):
         self.nmro_max_error_aviso = nmro_max_error_aviso
         self.comentario_consulta = comentario_consulta
         self.cant_hrs_sgte_aviso = cant_hrs_sgte_aviso
+
+    @property
+    def pk_name(self):
+        return 'id_consulta'

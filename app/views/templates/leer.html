@@ -67,11 +67,9 @@
         {% endif %}
     </div>
 
-
-
     
     <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover text-sm ">
             <thead class="table-dark" id="tableHeader">
                 <tr>
                     <!-- Itera sobre las cabeceras y crea una columna para cada una -->
@@ -110,7 +108,11 @@
                     {% for key, display_name in dic_valores.items() %}
                         {% if not key.startswith('_') and key not in ['url']%}
                             {% if valor.__dict__[key] != None %}
-                                <td>{{ valor.__dict__[key] }}</td>
+                                {% if key != 'desc_consulta' %}
+                                    <td>{{ valor.__dict__[key] }}</td>
+                                {% else %}
+                                    <td class="clob-cell">{{ valor.__dict__[key] }}</td>
+                                {% endif %}
                             {% else %}
                                 <td><em>Sin data</em></td>
                             {% endif %}
@@ -121,7 +123,7 @@
                 {% if breadcrumb == "CI's"%}
                     <tr id="subtabla-{{ valor[pk] }}" style="display: none;">
                         <td colspan="{{ dic_valores|length + 1 }}">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered text-sm">
                                 <tbody>
                                     <tr>
                                         {% if valor.url != None %}

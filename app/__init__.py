@@ -5,7 +5,7 @@ from app.database.db import db
 import cx_Oracle
 import os
 
-from .routes import alcance_global, alcance_servicios, alcance_cis, alcance_dependencias, alcance_personas, alcance_areas
+from .routes import alcance_global, alcance_servicios, alcance_cis, alcance_dependencias, alcance_personas, alcance_areas, alcance_consultas
 
 app = Flask(__name__, static_folder=Config.STATIC_FOLDER, template_folder=Config.TEMPLATE_FOLDER)
 app.config.from_object(Config)
@@ -25,3 +25,4 @@ app.register_blueprint(alcance_cis, url_prefix="/cis")
 app.register_blueprint(alcance_dependencias, url_prefix="/dependencias")
 app.register_blueprint(alcance_areas, url_prefix="/areas")
 app.register_blueprint(alcance_personas, url_prefix="/personas")
+app.register_blueprint(alcance_consultas, url_prefix="/consultas")

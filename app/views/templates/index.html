@@ -5,6 +5,74 @@
 <div style="display: flex; align-items: center; gap: 10px;">
     <i class="bi bi-house-fill" style="font-size: 22px; color: #3d464f;"></i>
 </div>
-<h1>Bienvenido a CMDB Generator</h1>
-<p>Aquí puedes gestionar los elementos de tu CMDB.</p>
+
+<!-- Main content --> 
+<div class="btn-home-group" style="display: flex;">
+    <button class="btn-home active" onclick="showTable('table1', this)">Avisos</button>
+    <button class="btn-home" onclick="showTable('table2', this)">Logs</button>
+</div>
+
+<div id="table1" class="table-home active">
+    <!-- Tabla 1 -->
+    <table class="table table-striped table-hover text-sm ">
+        <thead class="table-dark" id="tableHeader">
+            <tr>
+                <!-- Itera sobre las cabeceras y crea una columna para cada una -->
+                {% for cabecera in cabeceras_avisos %}
+                    <th>{{ cabecera }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for valor in valores_avisos %}
+                <tr>
+                <!-- Itera sobre todos los atributos del objeto 'valor' -->
+                {% for key, display_name in dic_valores_avisos.items() %}
+                    {% if not key.startswith('_')%}
+                        {% if valor.__dict__[key] != None %}
+                            <td>{{ valor.__dict__[key] }}</td>
+                        {% else %}
+                            <td><em>Sin data</em></td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="table2" class="table-home">
+    <!-- Tabla 2 -->
+    <table class="table table-striped table-hover text-sm ">
+        <thead class="table-dark" id="tableHeader">
+            <tr>
+                <!-- Itera sobre las cabeceras y crea una columna para cada una -->
+                {% for cabecera in cabeceras_logs %}
+                    <th>{{ cabecera }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for valor in valores_logs %}
+                <tr>
+                <!-- Itera sobre todos los atributos del objeto 'valor' -->
+                {% for key, display_name in dic_valores_logs.items() %}
+                    {% if key in valor %}
+                        <td>
+                            {% if valor[key] != None %}
+                                {{ valor[key] }}
+                            {% else %}
+                                <em>Sin data</em>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
 {% endblock %}

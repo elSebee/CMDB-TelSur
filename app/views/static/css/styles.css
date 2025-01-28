@@ -147,30 +147,10 @@
 }
 
 
-.table-container {
+.table-responsive {
     width: 100%;
     margin: 0 auto;
-}
-
-.table-header {
-    background-color: #2b343c;
-    color: #fff;
-    padding: 10px 10px;
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    display: flex; /* Usamos Flexbox */
-    justify-content: space-around; /* Distribuye los elementos uniformemente */
-    align-items: center;
-}
-.table-header span {
-    margin: 0 10px; /* Espaciado entre los elementos */
-}
-
-
-.card-title {
-    margin: 0; /* Elimina márgenes innecesarios para una mejor alineación */
-    font-size: 14px; /* Ajusta el tamaño del texto si es necesario */
+    zoom: 0.95;
 }
 
 .button-group {
@@ -178,28 +158,6 @@
 }
 .btn-action:hover {
     opacity: 0.9
-}
-.url-break {
-    word-break: break-all; /* Para navegadores antiguos */
-    overflow-wrap: anywhere; /* Para navegadores modernos */
-}
-
-.card-body {
-    display: flex; /* Convierte el contenedor en flexbox */
-    justify-content: space-between; /* Distribuye los elementos uniformemente */
-    align-items: center; /* Alinea verticalmente en el centro */
-    padding: 10px;
-}
-
-.card-expand {
-    max-height: 0; /* Oculta inicialmente el contenido */
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    padding: 0 10px; /* Espaciado interno para contenido */
-}
-
-.card-expand p {
-    margin: 5px 0;
 }
 
 .btn-expand {
@@ -215,10 +173,6 @@
     background-color: #33a3b8;
 }
 
-/* Cuando se expande */
-.card-expand.expanded {
-    max-height: 200px; /* Ajusta según el contenido esperado */
-}
 
 .btn-enviar {
   background-color: #068c64; /* Verde atractivo */
@@ -268,4 +222,46 @@
 .btn-filtro:hover {
     background-color: #333; /* Color más claro al pasar el mouse */
     color: #fff;
+}
+
+.clob-cell {
+    max-width: 300px; /* Limita el ancho */
+    white-space: nowrap; /* No permite que el texto salte a otra línea */
+    overflow: hidden; /* Oculta el texto sobrante */
+    text-overflow: ellipsis; /* Añade "..." al final si el texto es largo */
+    cursor: pointer; /* Indica que es clicable */
+}
+
+.clob-cell.expanded {
+    white-space: normal; /* Permite múltiples líneas */
+    overflow: visible; /* Muestra todo el texto */
+    text-overflow: unset; /* Elimina los "..." */
+}
+
+.table-home {
+    display: none;
+    margin-top: 20px;
+}
+
+.active {
+    display: block;
+}
+
+.btn-home {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-home:hover {
+    background-color: #ddd;
+}
+
+/* Estilo para el botón activo */
+.btn-home.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
 }
