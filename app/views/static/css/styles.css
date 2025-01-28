@@ -180,17 +180,8 @@
     opacity: 0.9
 }
 .url-break {
-    overflow-wrap: break-word;
-    max-width: 800px;
-    font-size: 0.8em;
-    word-break: normal;
-}
-
-.url-break {
-    overflow-wrap: anywhere;    /* Permite romper palabras largas, incluidas URLs */
-    word-break: break-word;     /* Asegura que las palabras puedan dividirse */
-    white-space: normal;        /* Permite saltos de línea normales */
-    font-size: 0.8em;
+    word-break: break-all; /* Para navegadores antiguos */
+    overflow-wrap: anywhere; /* Para navegadores modernos */
 }
 
 .card-body {
@@ -257,4 +248,24 @@
 
 .table-responsive {
     margin-top: 20px;
+}
+
+.btn-filtro {
+    background-color: #757575;
+    color: white;
+    border: none; /* Sin borde */
+    padding: 10px 10px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    display: flex; /* Alinear icono y texto */
+    align-items: center; /* Centrar contenido verticalmente */
+    justify-content: center; /* Centrar contenido horizontalmente */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    font-size: 18px; /* Tamaño de fuente */
+}
+
+.btn-filtro:hover {
+    background-color: #333; /* Color más claro al pasar el mouse */
+    color: #fff;
 }

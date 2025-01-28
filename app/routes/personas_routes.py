@@ -23,19 +23,19 @@ def nuevo():
     flash(crear['mensaje'], 'success' if crear['estado'] == 'éxito' else 'danger')
     return redirect(url_for('personas.personas'))
 
-@alcance_personas.route("/eliminar/<int:id>", methods=['POST'])
+@alcance_personas.route("/eliminar/<string:id>", methods=['POST'])
 def eliminar(id):
     eliminar = deletePersona(id)
     flash(eliminar['mensaje'], 'success' if eliminar['estado'] == 'éxito' else 'danger')
     return redirect(url_for('personas.personas'))
 
-@alcance_personas.route("/editar/<int:id>", methods=['GET'])
+@alcance_personas.route("/editar/<string:id>", methods=['GET'])
 def editar(id):
     persona = getPersonaById(id)
     campos = getCampos()
-    return render_template("editar.html", breadcrumb="personas", campos=campos, persona=persona, id=id, url='personas')
+    return render_template("editar.html", breadcrumb="personas", campos=campos, activo=persona, id=id, url='personas')
 
-@alcance_personas.route("/actualizar/<int:id>", methods=['POST'])
+@alcance_personas.route("/actualizar/<string:id>", methods=['POST'])
 def actualizar(id):
     actualizar = updatePersona(request.form, id)
     flash(actualizar['mensaje'], 'success' if actualizar['estado'] == 'éxito' else 'danger')

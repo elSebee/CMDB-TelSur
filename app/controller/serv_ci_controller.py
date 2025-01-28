@@ -1,5 +1,22 @@
 from app.models.serv_ci_model import ServCIRelacion
+from app.models.servicios_model import Servicios
 from app.database.db import db
+
+class ServsCIs:
+    def __init__(self, id_ci, id_servicio, alias):
+        self.id_ci = id_ci
+        self.id_servicio = id_servicio
+        self.alias = alias
+
+def getAllServCI():
+    serv_ci = (
+        db.session.query(ServCIRelacion.id_ci, ServCIRelacion.id_servicio, Servicios.alias)
+        .join(Servicios, ServCIRelacion.id_servicio == Servicios.id_servicio)
+        .order_by(ServCIRelacion.id_ci.asc())
+        .all()
+    )
+    
+    return [ServsCIs(*row) for row in serv_ci]
 
 def getServCIbyCI(id_ci):
     relaciones = ServCIRelacion.query.filter_by(id_ci=id_ci).all()

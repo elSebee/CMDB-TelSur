@@ -1,6 +1,7 @@
 from app.models.cis_model import CMDBConfItems
+from app.models.serv_ci_model import ServCIRelacion
 from app.controller.servicios_controller import getAllServicios
-from app.controller.serv_ci_controller import postServCI, updateServCI
+from app.controller.serv_ci_controller import postServCI, updateServCI, getServCIbyCI, getAllServCI
 from app.database.db import db
 from datetime import datetime
 
@@ -12,14 +13,48 @@ def getCiById(id):
     ci = CMDBConfItems.query.get_or_404(id)
     return ci
 
+def getAllServsCIs():
+    servicios = getAllServCI()
+    return servicios
+
+def getServiciosByCI(id_ci):
+    servicios = getServCIbyCI(id_ci)
+    return servicios
+
+def getServicios():
+    return getAllServicios()
+
+def getCisByServicio(filtros):
+    valores_filtros = list(filtros.values())
+    cis_filtrados = db.session.query(CMDBConfItems).join(ServCIRelacion).filter(
+        ServCIRelacion.id_servicio.in_(valores_filtros)
+    ).all()
+    return cis_filtrados
+
 def getCampos():
     servicios = getAllServicios()
     opciones_servicios = {servicio.id_servicio: servicio.alias for servicio in servicios}
+    opciones_tipo = {
+        "Servidor": "Servidor",
+        "Aplicación": "Aplicación",
+        "Base de Datos": "Base de Datos",
+        "Web Service": "Web Service",
+        "Listener DB": "Listener DB",
+        "Esquema": "Esquema",
+        "Sitio Web": "Sitio Web",
+        "Vista": "Vista",
+        "Otros": "Otros"
+    }
+    opciones_estado = {
+        "Activo": "Activo",
+        "Inactivo": "Inactivo",
+        "En mantenimiento": "En mantenimiento"
+    }
     campos = [
         {"name": "alias", "type": "text", "label": "Alias", "required": True},
-        {"name": "prioridad", "type": "select", "label": "Prioridad", "options": ["Alta", "Media", "Baja"], "required": True},
-        {"name": "tipo_ci", "type": "select", "label": "Tipo", "options": ['Servidor', 'Aplicación', 'Base de Datos', 'Web Service', 'Listener DB', 'Esquema', 'Sitio Web', 'Vista', 'Otros'], "required": True},
-        {"name": "estado", "type": "select", "label": "Estado", "options": ["Activo", "Inactivo", "En mantenimiento"], "required": True},
+        {"name": "prioridad", "type": "select", "label": "Prioridad", "options": {"Alta":"Alta", "Media":"Media", "Baja":"Baja"}, "required": True},
+        {"name": "tipo_ci", "type": "select", "label": "Tipo", "options": opciones_tipo, "required": True},
+        {"name": "estado", "type": "select", "label": "Estado", "options": opciones_estado, "required": True},
         {"name": "dire_ip", "type": "text", "label": "Dirección IP", "required": False},
         {"name": "puerto", "type": "number", "label": "Puerto", "required": False},
         {"name": "url", "type": "text", "label": "URL", "required": False},
@@ -38,8 +73,8 @@ def getDicValores():
         "dire_ip": "Dirección IP", 
         "puerto": "Puerto", 
         "fech_actualizacion": "Fecha", 
+        "desc_ci": "Descripción",
         "url": "URL", 
-        "desc_ci": "Descripción"
     }
 
 def getPK():

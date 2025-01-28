@@ -41,6 +41,10 @@ def getPersonaById(id):
 def getCampos():
     areas = getAllAreas()
     opciones_areas = {area.id_area: area.nombre for area in areas}
+    opciones_metodo = {
+        "Mail":"Mail",
+        "Celular":"Celular"
+    }
     campos = [
         {"name": "rut", "type": "text", "label": "R.U.T", "required": True},
         {"name": "nomb_persona", "type": "text", "label": "Nombre", "required": True},
@@ -50,7 +54,7 @@ def getCampos():
         {"name": "mail", "type": "text", "label": "Correo Electrónico", "required": False},
         {"name": "celular", "type": "text", "label": "Número de Celular", "required": False},
         {"name": "codi_horario", "type": "text", "label": "Código de Horario", "required": False},
-        {"name": "mtdo_aviso_default", "type": "select", "label": "Método de Aviso Predeterminado", "options": ["Mail", "Celular"], "required": False},
+        {"name": "mtdo_aviso_default", "type": "select", "label": "Método de Aviso Predeterminado", "options": opciones_metodo, "required": False},
     ]
     return campos
 

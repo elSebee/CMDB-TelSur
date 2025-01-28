@@ -33,7 +33,7 @@ def eliminar(id):
 def editar(id):
     servicio = getServicioById(id)
     campos = getCampos()
-    return render_template("editar.html", breadcrumb="Servicios", campos=campos, servicio=servicio, id=id, url='servicios')
+    return render_template("editar.html", breadcrumb="Servicios", campos=campos, activo=servicio, id=id, url='servicios')
 
 @alcance_servicios.route("/actualizar/<int:id>", methods=['POST'])
 def actualizar(id):

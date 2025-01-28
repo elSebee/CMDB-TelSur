@@ -1,16 +1,33 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from app.controller.cis_controller import getAllCis, getCampos, getDicValores, getPK, postCI, deleteCI, updateCI, getCiById
+from app.controller.cis_controller import getAllCis, getCampos, getDicValores, getPK, postCI, deleteCI, updateCI, getCiById, getAllServsCIs, getServicios, getCisByServicio
 
 alcance_cis = Blueprint("cis", __name__)
 
 @alcance_cis.route("/", methods=['GET'])
 def cis():
     dic_valores = getDicValores()
-    cabeceras = list(dic_valores.values())
+    cabeceras = list(dic_valores.values())[:-1]
     cabeceras.insert(0, "Acción")
-    cis = getAllCis()
+    filtros = request.args.to_dict()
+    if filtros:
+        cis = getCisByServicio(filtros)
+    else:
+        cis = getAllCis()
+    servs_cis = getAllServsCIs()
+    servs = getServicios()
     pk=getPK()
-    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis')
+    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
+
+@alcance_cis.route("/filtrar", methods=['GET'])
+def filtrar():
+    dic_valores = getDicValores()
+    cabeceras = list(dic_valores.values())[:-1]
+    cabeceras.insert(0, "Acción")
+    cis = getCisByServicio(request.args.to_dict())
+    servs_cis = getAllServsCIs()
+    servs = getServicios()
+    pk=getPK()
+    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
 
 @alcance_cis.route("/agregar", methods=['GET'])
 def agregar():
@@ -33,7 +50,7 @@ def eliminar(id):
 def editar(id):
     ci = getCiById(id)
     campos = getCampos()
-    return render_template("editar.html", breadcrumb="CI's", campos=campos, ci=ci, id=id, url='cis')
+    return render_template("editar.html", breadcrumb="CI's", campos=campos, activo=ci, id=id, url='cis')
 
 @alcance_cis.route("/actualizar/<int:id>", methods=['POST'])
 def actualizar(id):

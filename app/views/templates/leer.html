@@ -23,17 +23,57 @@
         {% endif %}
     {% endwith %}
     
-    {% set endpoint = url ~ '.agregar' %}
-    <button onclick="location.href='{{ url_for(endpoint) }}'" class="btn-agregar">
-        <i class="bi bi-plus-circle-dotted"></i>
-        AGREGAR NUEVO
-    </button>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        {% set endpoint = url ~ '.agregar' %}
+        <button onclick="location.href='{{ url_for(endpoint) }}'" class="btn-agregar">
+            <i class="bi bi-plus-circle-dotted"></i>
+            AGREGAR NUEVO
+        </button>
+        
+        {% if breadcrumb == "CI's" %}
+            <button type="button" title="Filtrar" class="btn-filtro" data-bs-toggle="modal" data-bs-target="#filtroModal">
+                <i class="bi bi-sort-down"></i>
+            </button>
+            <!-- Modal para filtro -->
+            <div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex flex-column">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h1 class="modal-title fs-5" id="filtroModalLabel">
+                                Mostrar CI's por Servicio.
+                            </h1>
+                        </div>
+                        {% set endpoint = url ~ '.cis' %}
+                        <form method="GET" action="{{ url_for(endpoint)}}">
+                            <div class="modal-body">
+                                    {% for serv in servs %}
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" id="{{ serv.id_servicio }}" name="{{ serv.alias }}" value="{{ serv.id_servicio }}">
+                                            <label class="form-check-label" for="{{ serv.id_servicio }}">{{ serv.alias }}</label>
+                                        </div>
+                                    {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">
+                                    Aplicar Filtro
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 
+
+
+    
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-dark" id="tableHeader">
                 <tr>
-
                     <!-- Itera sobre las cabeceras y crea una columna para cada una -->
                     {% for cabecera in cabeceras %}
                         <th>{{ cabecera }}</th>
@@ -42,7 +82,11 @@
             </thead>
             <tbody>
                 {% for valor in valores %}
-                <tr>
+                {% if breadcrumb == "CI's" and valor.estado == "Inactivo" %}
+                    <tr class="table-danger">
+                {% else %}
+                    <tr>
+                {% endif %}
                     <!-- Botones de acciones -->
                     <td>
                         <div class="button-group">
@@ -55,22 +99,56 @@
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
+                            {% if breadcrumb == "CI's"%}
+                                <button class="btn btn-action ver-mas" title="Ver más" style="background-color: #33a3b8; color: black;" data-target="subtabla-{{ valor[pk] }}">
+                                    <i class="bi bi-chevron-down"></i>
+                                </button>
+                            {% endif %}
                         </div>
                     </td>
                     <!-- Itera sobre todos los atributos del objeto 'valor' -->
                     {% for key, display_name in dic_valores.items() %}
-                        {% if not key.startswith('_') %}
-                            <td>{{ valor.__dict__[key] }}</td>
+                        {% if not key.startswith('_') and key not in ['url']%}
+                            {% if valor.__dict__[key] != None %}
+                                <td>{{ valor.__dict__[key] }}</td>
+                            {% else %}
+                                <td><em>Sin data</em></td>
+                            {% endif %}
                         {% endif %}
+
                     {% endfor %}
                 </tr>
+                {% if breadcrumb == "CI's"%}
+                    <tr id="subtabla-{{ valor[pk] }}" style="display: none;">
+                        <td colspan="{{ dic_valores|length + 1 }}">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        {% if valor.url != None %}
+                                            <td class="url-break"><strong>URL:</strong> {{ valor.url }}</td>
+                                        {% else %}
+                                            <td><em><strong>URL:</strong> Sin data</em></td>
+                                    </tr>
+                                        {% endif %}
+                                        {% for serv in servs_cis %}
+                                            <tr>
+                                                {% if serv.id_ci == valor.id_ci %}
+                                                <td><em><strong>Servicio Asociado:</strong> {{ serv.alias }}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% endif %}
                 <!-- Modal para eliminar -->
-                <div class="modal fade" id="eliminarModal-{{ valor[pk] }}" tabindex="-1" aria-labelledby="eliminarModalLabel-{{ valor[pk] }}" aria-hidden="true">
+                <div class="modal fade" id="eliminarModal-{{ valor[pk] }}" tabindex="-1" aria-labelledby="filtroModalLabel-{{ valor[pk] }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-header d-flex flex-column">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <h1 class="modal-title fs-5 text-danger" id="eliminarModalLabel-{{ valor[pk] }}">¿Desea eliminar de <em>{{ breadcrumb }}</em> el registro con <strong>ID: {{ valor[pk] }}</strong>?</h1>
+                                <h1 class="modal-title fs-5 text-danger" id="filtroModalLabel-{{ valor[pk] }}">¿Desea eliminar de <em>{{ breadcrumb }}</em> el registro con <strong>ID: {{ valor[pk] }}</strong>?</h1>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

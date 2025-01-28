@@ -8,6 +8,7 @@
     </button>
     <p style="margin: 0;">/ {{ breadcrumb }} / Editar</p>
 </div>
+
 <!-- Main content -->
 <div class="container-fluid mt-4">
     <div style="display: flex; align-items: center; gap: 10px; background-color: #d6d4d4;">
@@ -33,9 +34,9 @@
                     <div class="flex-grow-1" style="padding-left: 100px;">
                         {% if campo.type == 'select' %}
                             <select class="form-select" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
-                                <option value="" disabled {% if not ci[campo.name] %} selected {% endif %}>Selecciona {{ campo.label }}</option>
+                                <option value="" disabled {% if not activo[campo.name] %} selected {% endif %}>Selecciona {{ campo.label }}</option>
                                 {% for option in campo.options %}
-                                    <option value="{{ option }}" {% if ci[campo.name] == option %} selected {% endif %}>{{ option }}</option>
+                                    <option value="{{ option }}" {% if activo[campo.name] == option %} selected {% endif %}>{{ option }}</option>
                                 {% endfor %}
                             </select>
 
@@ -72,7 +73,7 @@
                                 </div>
                             </div>
                         {% else %}
-                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %} {% if ci[campo.name] %} value="{{ ci[campo.name] }}" {% endif %}>
+                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %} {% if activo[campo.name] %} value="{{ activo[campo.name] }}" {% endif %}>
                         {% endif %}
                     </div>
                 </div>

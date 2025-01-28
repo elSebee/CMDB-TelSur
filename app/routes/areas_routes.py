@@ -33,7 +33,7 @@ def eliminar(id):
 def editar(id):
     area = getAreaById(id)
     campos = getCampos()
-    return render_template("editar.html", breadcrumb="Áreas", campos=campos, area=area, id=id, url='areas')
+    return render_template("editar.html", breadcrumb="Áreas", campos=campos, activo=area, id=id, url='areas')
 
 @alcance_areas.route("/actualizar/<int:id>", methods=['POST'])
 def actualizar(id):
