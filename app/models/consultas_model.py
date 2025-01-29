@@ -1,9 +1,10 @@
+from sqlalchemy import Sequence
 from app.database.db import db
 
 class Consultas(db.Model):
     __tablename__ = "PROCT_CONSULTAS"
 
-    id_consulta = db.Column(db.Integer(), primary_key=True)
+    id_consulta = db.Column(db.Integer(), Sequence('procq_idconsulta', metadata=db.metadata), primary_key=True)
     id_servicio = db.Column(db.Integer, db.ForeignKey("PROCT_SERVICIOS.id_servicio"))
     desc_consulta = db.Column(db.Text)
     id_tipo_consulta = db.Column(db.Integer)
@@ -18,7 +19,6 @@ class Consultas(db.Model):
 
     def __init__(
         self,
-        id_consulta,
         id_servicio,
         desc_consulta,
         id_tipo_consulta,
@@ -31,7 +31,6 @@ class Consultas(db.Model):
         comentario_consulta,
         cant_hrs_sgte_aviso,
     ):
-        self.id_consulta = id_consulta
         self.id_servicio = id_servicio
         self.desc_consulta = desc_consulta
         self.id_tipo_consulta = id_tipo_consulta

@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Breadcrumb -->
 <div style="display: flex; align-items: center; gap: 10px;">
-    <button onclick="location.href='/'" class="btn btn-primary" style="border: none; background: none; padding: 0;">
+    <button onclick="location.href='/'" class="btn btn-breadcrumb" title="Home">
         <i class="bi bi-house-fill" style="font-size: 22px; color: #33a3b8;"></i>
     </button>
     <p style="margin: 0;">/ {{ breadcrumb }} / Editar</p>
@@ -72,8 +72,10 @@
                                     </div>
                                 </div>
                             </div>
+                        {% elif campo.type == 'text' %}
+                            <textarea class="form-control" id="{{ campo.name }}" rows="1" oninput="autoResize(this)" placeholder="Escribe {{ campo.label }}" style="width: 100%; min-height: 40px; overflow: hidden; resize: none;"{% if campo.required %} required {% endif %} {% if campo.name == 'rut' %} maxlength="12" {% endif %}>{% if activo[campo.name] %} {{ activo[campo.name] }} {% endif %}</textarea>
                         {% else %}
-                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %} {% if activo[campo.name] %} value="{{ activo[campo.name] }}" {% endif %}>
+                            <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" {% if activo[campo.name] %} value="{{ activo[campo.name] }}" {% endif %}>
                         {% endif %}
                     </div>
                 </div>

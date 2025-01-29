@@ -141,20 +141,31 @@ def postCI(form):
     
 def deleteCI(id):
     try:
-        ci = CMDBConfItems.query.get_or_404(id)  # Si no existe, lanza un error 404
+        ci = getCiById(id)  # Si no existe, lanza un error 404
 
-        db.session.delete(ci)
-        db.session.commit()
+        if ci.estado == 'Activo':
+            ci.estado = 'Inactivo'
+            db.session.commit()
 
-        return {
-            "estado": "éxito",
-            "mensaje": "¡Item de Configuración eliminado con éxito!",
-        }
+            return {
+                "estado": "éxito",
+                "mensaje": "¡Item de Configuración desactivado con éxito!",
+            }
+        else:
+            ci.estado = 'Activo'
+            db.session.commit()
+
+            return {
+                "estado": "éxito",
+                "mensaje": "¡Item de Configuración activado con éxito!",
+            }
+
+
     except Exception as e:
         db.session.rollback()
         return {
             "estado": "error",
-            "mensaje": f"¡Error al eliminar el Item: {str(e)}!"
+            "mensaje": f"¡Error al desactivar el Item: {str(e)}!"
         }
     
 

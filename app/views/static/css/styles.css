@@ -88,6 +88,20 @@
     }
 }
 
+.btn-breadcrumb {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.btn-breadcrumb:active {
+    border: none;
+    background: none;
+    background-color: #237483; /* Azul más profundo al presionar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reducida */
+    transform: translateY(2px); /* Efecto de presión */
+  }
+
 .btn-agregar {
     background-color: #41b8d5;
     color: black;
@@ -248,11 +262,16 @@
 }
 
 .btn-home {
-    padding: 10px 20px;
-    border: 1px solid #ccc;
     background-color: #f1f1f1;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.5s, color 0.3s;
 }
 
 .btn-home:hover {
@@ -261,7 +280,20 @@
 
 /* Estilo para el botón activo */
 .btn-home.active {
-    background-color: #007bff;
+    background-color: #375D9D;
     color: white;
-    border-color: #007bff;
+}
+
+.btn-home.active i {
+    color: yellow;
+}
+
+.btn-home i {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+    font-size: 20px; /* Tamaño del icono */
+    transition: transform 0.3s ease; /* Animación suave para el icono */
+}
+
+.btn-home:hover i {
+    transform: scale(1.2); /* Aumenta el tamaño del icono ligeramente */
 }

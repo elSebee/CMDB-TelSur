@@ -29,6 +29,6 @@ def getDicValoresLogs():
         "id_consulta": "ID Consulta",
         "nmro_registros": "Número Registros",
         "desc_error": "Descripción Error",
-        "cant_segundos_ejecucion": "Cantidad Segundos Ejecución",
+        "cant_segundos_ejecucion": "Segundos Ejecución",
         "fech_proceso": "Fecha Proceso",
     }

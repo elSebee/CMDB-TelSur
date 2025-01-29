@@ -16,7 +16,7 @@ def cis():
     servs_cis = getAllServsCIs()
     servs = getServicios()
     pk=getPK()
-    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
+    return render_template("leerCIs.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
 
 @alcance_cis.route("/filtrar", methods=['GET'])
 def filtrar():
@@ -27,7 +27,7 @@ def filtrar():
     servs_cis = getAllServsCIs()
     servs = getServicios()
     pk=getPK()
-    return render_template("leer.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
+    return render_template("leerCIs.html", breadcrumb="CI's", valores=cis, dic_valores=dic_valores, cabeceras=cabeceras, pk=pk, url='cis', servs_cis=servs_cis, servs=servs)
 
 @alcance_cis.route("/agregar", methods=['GET'])
 def agregar():
@@ -41,9 +41,9 @@ def nuevo():
     return redirect(url_for('cis.cis'))
 
 @alcance_cis.route("/eliminar/<int:id>", methods=['POST'])
-def eliminar(id):
-    eliminar = deleteCI(id)
-    flash(eliminar['mensaje'], 'success' if eliminar['estado'] == 'éxito' else 'danger')
+def alternar(id):
+    alternar = deleteCI(id)
+    flash(alternar['mensaje'], 'success' if alternar['estado'] == 'éxito' else 'danger')
     return redirect(url_for('cis.cis'))
 
 @alcance_cis.route("/editar/<int:id>", methods=['GET'])

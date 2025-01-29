@@ -9,7 +9,7 @@ class CMDBConfItems(db.Model):
     alias = db.Column(db.String(100))
     prioridad = db.Column(db.String(10))
     tipo_ci = db.Column(db.String(30))
-    estado = db.Column(db.String(15))
+    estado = db.Column(db.String(16))
     fech_actualizacion = db.Column(db.Date)
     dire_ip = db.Column(db.String(15))
     puerto = db.Column(db.Integer)
