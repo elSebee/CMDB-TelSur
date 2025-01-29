@@ -29,39 +29,39 @@
                     <img src="/static/favicon.webp" alt="Logo" class="img-fluid" style="width: 150px; height: 150px;">
                 </li>
                 <li class="nav-item" style="padding-top: 20px;">
-                    <a class="nav-link {% if request.path == '/servicios/' %}active{% endif %}" href="/servicios">
+                    <a class="nav-link {% if request.path.startswith('/servicios/') %}active{% endif %}" href="/servicios">
                         <i class="bi bi-headset" style="font-size: 18px; margin-right: 8px;"></i>
                         Servicios
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/cis/' %}active{% endif %}" href="/cis">
+                    <a class="nav-link {% if request.path.startswith('/cis/') %}active{% endif %}"  href="/cis">
                         <i class="bi bi-diagram-2" style="font-size: 18px; margin-right: 8px;"></i>
                         CI's
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/dependencias/' %}active{% endif %}" href="/dependencias">
+                    <a class="nav-link {% if request.path.startswith('/dependencias/') %}active{% endif %}"  href="/dependencias">
                         <i class="bi bi-link" style="font-size: 18px; margin-right: 8px;"></i>
                         Dependencias
                     </a>
                 </li>
                 <div class="separator" style="border-bottom: 1px solid white; margin: 20px;"></div>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/areas/' %}active{% endif %}" href="/areas">
+                    <a class="nav-link {% if request.path.startswith('/areas/') %}active{% endif %}"  href="/areas">
                         <i class="bi bi-person-workspace" style="font-size: 18px; margin-right: 8px;"></i>
                         Áreas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/personas/' %}active{% endif %}" href="/personas">
+                    <a class="nav-link {% if request.path.startswith('/personas/') %}active{% endif %}"  href="/personas">
                         <i class="bi bi-people-fill" style="font-size: 18px; margin-right: 8px;"></i>
                         Personas
                     </a>
                 </li>
                 <div class="separator" style="border-bottom: 1px solid white; margin: 20px;"></div>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/consultas/' %}active{% endif %}" href="/consultas">
+                    <a class="nav-link {% if request.path.startswith('/consultas/') %}active{% endif %}"  href="/consultas">
                         <i class="bi bi-code-slash" style="font-size: 18px; margin-right: 8px;"></i>
                         Consultas
                     </a>
@@ -86,6 +86,7 @@
     <script src="{{ url_for('static', filename='js/verClob.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tablaIndex.js') }}"></script>
     <script src="{{ url_for('static', filename='js/autoResize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nuevaFilaDep.js') }}"></script>
 </body>
 
 
