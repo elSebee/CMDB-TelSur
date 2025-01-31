@@ -21,4 +21,30 @@ La aplicación, al ser un CRUD permite la gestión de información dentro de la 
 
 # 6. Estructura del Proyecto
 
+```
+CMDB-APP/
+│
+├── app/                # Carpeta principal con la lógica de la app
+│   ├── __init__.py     # Inicialización de la app Flask
+│   ├── routes/         # Definición de las rutas (endpoints)
+│   ├── controller/     # Controladores (lógica del negocio)
+│   ├── models/         # Modelos de la base de datos
+│   ├── database/       # Conexión y configuración de la base de datos
+│   └── views/          # Archivos HTML
+│       ├── static/     # Archivos estáticos (CSS, JS, imágenes)
+│       │   ├── CSS/
+│       │   ├── images/
+│       │   └── js/
+│       └── templates/  # Plantillas HTML
+├── docs/               # Documentación del proyecto
+├── requirements.txt    # Dependencias del proyecto
+├── config.py           # Configuración de la aplicación
+├── README.md           # Este archivo
+├── LICENSE             # Licencia del proyecto
+└── run.py              # Archivo principal para ejecutar la app
+```
+
 # 7. Licencia
+
+Este proyecto está bajo la [MIT License](./LICENSE) - consulta el archivo LICENSE para más detalles.
+
