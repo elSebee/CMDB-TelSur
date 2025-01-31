@@ -20,9 +20,11 @@
         <p style="margin: 0;"> {{ breadcrumb }}</p>
     </div>
 
-    <form method="POST" class="container">
+    {% set endpoint = url ~ '.nuevo' %}
+    <form method="POST"></form>
         <div id="campos-container">
             <div class="row g-3 campos-fila mt-1">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 {% for campo in campos %}
                     <div class="col-md-3">
                         <label for="{{ campo.name }}" class="form-label">{{ campo.label }}</label>
@@ -49,10 +51,11 @@
             <button type="button" id="btn-agregar" class="btn btn-primary">
                 <i class="bi bi-plus-circle-dotted"></i>
             </button>
-            <button type="submit" class="btn-enviar"><i class="bi bi-check"></i>Agregar</button>
+            <button type="submit" class="btn-enviar" onclick="enviar_formularios();"><i class="bi bi-check"></i>Agregar</button>
         </div>
+        
     </form>
-    
+
     
 </div>
 {% endblock %}

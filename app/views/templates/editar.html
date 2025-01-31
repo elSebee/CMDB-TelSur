@@ -36,7 +36,7 @@
                             <select class="form-select" id="{{ campo.name }}" name="{{ campo.name }}" {% if campo.required %} required {% endif %}>
                                 <option value="" disabled {% if not activo[campo.name] %} selected {% endif %}>Selecciona {{ campo.label }}</option>
                                 {% for option in campo.options %}
-                                    <option value="{{ option }}" {% if activo[campo.name] == option %} selected {% endif %}>{{ option }}</option>
+                                    <option value="{{ option }}" {% if activo[campo.name] == option %} selected {% endif %}>{{ campo.options[option] }}</option>
                                 {% endfor %}
                             </select>
 

@@ -72,8 +72,8 @@
                                 </div>
                             </div>
                         {% elif campo.type == 'text' %}
-                            <textarea class="form-control" id="{{ campo.name }}" rows="1" oninput="autoResize(this)" placeholder="Escribe {{ campo.label }}" style="width: 100%; min-height: 40px; overflow: hidden; resize: none;"{% if campo.required %} required {% endif %} {% if campo.name == 'rut' %} maxlength="12" {% endif %}></textarea>
-                        {% else %}
+                            <textarea class="form-control" id="{{ campo.name }}" name="{{ campo.name }}" rows="1" oninput="autoResize(this)" placeholder="Escribe {{ campo.label }}" style="width: 100%; min-height: 40px; overflow: hidden; resize: none;"{% if campo.required %} required {% endif %} {% if campo.name == 'rut' %} maxlength="12" {% endif %}></textarea>
+                        {% else %} 
                             <input type="{{ campo.type }}" placeholder="Escribe {{ campo.label }}" class="form-control" id="{{ campo.name }}" name="{{ campo.name }}">
                         {% endif %}
                     </div>

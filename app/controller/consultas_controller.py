@@ -42,7 +42,7 @@ def getCampos():
 
 def getDicValores():
     return {
-        "id_consulta": "ID Consulta",
+        "id_consulta": "ID",
         "id_servicio": "ID Servicio",
         "desc_consulta": "Descripción Consulta",
         "id_tipo_consulta": "ID Tipo Consulta",

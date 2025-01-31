@@ -9,7 +9,7 @@ class Logs(db.Model):
     nmro_registros = db.Column(db.Integer, nullable=False)
     desc_error = db.Column(db.String(200), nullable=True)
     cant_segundos_ejecucion = db.Column(db.Float, nullable=False)
-    fech_proceso = db.Column(db.Date, nullable=False)
+    fech_proceso = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, id_consulta, nmro_registros, desc_error, cant_segundos_ejecucion, fech_proceso):
         self.id_consulta = id_consulta

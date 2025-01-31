@@ -25,7 +25,7 @@ def getAllLogs():
 
 def getDicValoresLogs():
     return {
-        "id_log": "ID Log",
+        "id_log": "ID",
         "id_consulta": "ID Consulta",
         "nmro_registros": "Número Registros",
         "desc_error": "Descripción Error",
