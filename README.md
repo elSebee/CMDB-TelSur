@@ -11,8 +11,40 @@ La aplicación, al ser CRUD, permite la gestión de información dentro de la CM
 4. **__Agregar__** nuevos elementos a la base de datos. 
 
 # 3. Instalación
+1.- Clonar el repositorio
+- git clone https://github.com/elSebee/CMDB-TelSur.git
+
+2.- Acceder al directorio del proyecto
+
+3.- Crear un entorno virtual
+- python -m venv venv
+
+4.- Activar el entorno
+- Windows
+    - venv\Scripts\activate
+- Linux
+    - source venv/bin/activate
+
+5.- Instalar las [dependencias](./requirements.txt)
+- pip install -r requirements.txt
+
+6.- Crear archivo .env
+```
+ORACLE_USER=pproc
+ORACLE_PASSWORD=corpp
+ORACLE_HOST=172.16.68.91 (desarrollo)
+ORACLE_PORT=1533 (desarrollo)
+ORACLE_SERVICE_NAME=desacnt (desarrollo)
+ORACLE_LIB_DIR=/usr/lib/oracle/21/client64/lib
+```
+
+7.- Ejecutar la aplicación
+- python run.py
+
 
 # 4. Uso
+Para acceder a la aplicación:
+- Abre un navegador (recomendado: microsoft edge) y ve a http://localhost:7001/
 
 # 5. Tecnologías Utilizadas
 - **Framework:** Flask Python
@@ -30,7 +62,7 @@ CMDB-APP/
 │   ├── routes/         # Definición de las rutas (endpoints)
 │   ├── controller/     # Controladores (lógica del negocio)
 │   ├── models/         # Modelos de la base de datos
-│   ├── database/       # Conexión a la base de datos
+│   ├── database/       # Conexión a la base de datos + .sql
 │   └── views/          # Archivos de Frontend
 │       ├── static/     # Archivos estáticos (CSS, JS, imágenes)
 │       │   ├── CSS/
