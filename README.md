@@ -23,7 +23,9 @@ La aplicación, al ser CRUD, permite la gestión de información dentro de la CM
 - Windows
     - venv\Scripts\activate
 - Linux
-    - source venv/bin/activate
+    - . .venv/bin/activate
+- Para verificar si estás en el entorno virtual:
+    - echo $VIRTUAL_ENV
 
 5.- Instalar las [dependencias](./requirements.txt)
 - pip install -r requirements.txt
@@ -45,6 +47,7 @@ ORACLE_LIB_DIR=/usr/lib/oracle/21/client64/lib
 # 4. Uso
 Para acceder a la aplicación:
 - Abre un navegador (recomendado: microsoft edge) y ve a http://localhost:7001/
+- Esta URL está definida en el script *Config.py*
 
 # 5. Tecnologías Utilizadas
 - **Framework:** Flask Python
