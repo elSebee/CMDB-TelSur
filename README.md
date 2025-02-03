@@ -31,7 +31,7 @@ La aplicación, al ser CRUD, permite la gestión de información dentro de la CM
 6.- Crear archivo .env
 ```
 ORACLE_USER=pproc
-ORACLE_PASSWORD=corpp
+ORACLE_PASSWORD=
 ORACLE_HOST=172.16.68.91 (desarrollo)
 ORACLE_PORT=1533 (desarrollo)
 ORACLE_SERVICE_NAME=desacnt (desarrollo)
