@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     SERVER_NAME = "localhost:7001"
-    DEBUG = True
+    DEBUG = True # Al pasar a producción poner False
 
     # Configuración de la base de datos
     SQLALCHEMY_DATABASE_URI = (
